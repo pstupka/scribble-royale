@@ -20,12 +20,12 @@ func _ready() -> void:
 	arrow = arrow_scene.instance()
 	$Hand2.add_child(arrow)
 	arrow.position += arrow_offset
+	arrow.mode = RigidBody2D.MODE_STATIC 
 	randomize()
 	
 
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
-	
 	if Input.is_action_just_pressed("shoot"):
 		prepare()
 	if Input.is_action_just_released("shoot"):
@@ -52,7 +52,9 @@ func shot() -> void:
 		var transf : Transform2D = arrow.global_transform
 		arrow.set_as_toplevel(true)
 		arrow.global_transform = transf
-		arrow.shoot(arrow.transform.x * ARROW_VELOCITY * strength)
+		var direction = global_position.direction_to(get_global_mouse_position()).normalized()
+		arrow.mode = RigidBody2D.MODE_RIGID 
+		arrow.apply_central_impulse(direction * ARROW_VELOCITY * strength)
 		$Timer.start(0.4)
 		can_shot = false
 
@@ -65,4 +67,5 @@ func _on_Timer_timeout() -> void:
 	arrow = arrow_scene.instance()
 	$Hand2.add_child(arrow)
 	arrow.position += arrow_offset
+	arrow.mode = RigidBody2D.MODE_STATIC 
 	can_shot = true

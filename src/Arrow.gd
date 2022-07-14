@@ -1,23 +1,20 @@
-extends Area2D
+extends RigidBody2D
 
-var shot = false
-var velocity = Vector2(1, 0)
+var contact_point
 
 func _ready() -> void:
-	gravity = gravity * 10
-	$CollisionShape2D.disabled = true
+	pass
 
-func _physics_process(delta: float) -> void:
-	if shot: 
-		velocity.y += gravity * delta
-		position += velocity * delta
-		rotation = velocity.angle()
-
-func shoot(vel) -> void:
-	$CollisionShape2D.disabled = false
-	velocity = vel
-	shot = true
-
+func _process(delta: float) -> void:
+	pass
+#	$ArrowSprite.rotation = linear_velocity.angle()
+#	$CollisionShape2D.rotation = linear_velocity.angle()
 
 func _on_Arrow_body_entered(body: Node) -> void:
-	if body.is_in_group("Tile"): set_physics_process(false)
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
+	set_deferred("contact_monitor", false)
+	if (body.is_in_group("Player")):
+		call_deferred("queue_free")
+#	Utils.call_deferred("reparent", self, body)
+#	set_as_toplevel(false)
+	

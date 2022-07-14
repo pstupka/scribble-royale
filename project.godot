@@ -10,9 +10,13 @@ config_version=4
 
 [application]
 
-config/name="# 177 - Where Is The Target"
+config/name="Scribble Royale"
 run/main_scene="res://src/levels/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Utils="*res://src/globals/utils.gd"
 
 [display]
 

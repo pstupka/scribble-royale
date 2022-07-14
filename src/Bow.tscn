@@ -10,7 +10,7 @@ script = ExtResource( 3 )
 [node name="Chord" type="Node2D" parent="."]
 
 [node name="Line2D" type="Line2D" parent="Chord"]
-points = PoolVector2Array( 25, -27, 23, 4, 25, 26 )
+points = PoolVector2Array( 24, -27, 23, 4, 24, 26 )
 width = 2.0
 default_color = Color( 1, 1, 1, 1 )
 
