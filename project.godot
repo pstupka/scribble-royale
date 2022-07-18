@@ -23,6 +23,10 @@ Utils="*res://src/globals/utils.gd"
 window/size/test_width=1536
 window/size/test_height=900
 
+[gui]
+
+theme/use_hidpi=true
+
 [importer_defaults]
 
 texture={
@@ -72,6 +76,17 @@ shoot={
 , Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Items"
+2d_physics/layer_3="Weapons"
+2d_physics/layer_4="Bullets"
+2d_physics/layer_5="Player 1"
+2d_physics/layer_6="Player 2"
+2d_physics/layer_7="Player 3"
+2d_physics/layer_8="Player 4"
 
 [physics]
 
