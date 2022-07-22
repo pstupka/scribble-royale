@@ -1,11 +1,9 @@
 # Overview
 
 ## Theme / Setting / Genre
-
 Local multiplayer battle game
 
 ## Core Gameplay Mechanics Brief
-
   - <Gameplay Mechanic #1>
   - <Gameplay Mechanic #2>
   - <Gameplay Mechanic #3>
@@ -38,17 +36,14 @@ Local multiplayer battle game
   - Worms
 
 ## The elevator Pitch
-
 [A one sentence pitch for your game]
 Pretend that your were pitching your game to a executive going to the elevator. You have less than 60 Seconds.
 
 ## Project Description (Brief):
-
 [Two Paragraphs at least]
 [No more than three paragraphs]
 
 ## Project Description (Detailed)
-
 [Four Paragraphs or more If needs be]
 [No more than six paragraphs]
 
@@ -76,21 +71,17 @@ Pretend that your were pitching your game to a executive going to the elevator. 
 # Story and Gameplay
 
 ## Story (Brief)
-
 [The Summary or TL;DR version of below]
 
 ## Story (Detailed)
-
 [Go into as much detail as needs be]
 [Spare no detail]
 [Use Mind Mapping software to get your point across]
 
 ## Gameplay (Brief)
-
 [The Summary version of below]
 
 ## Gameplay (Detailed)
-
 [Go into as much detail as needs be]
 [Spare no detail]
 [Combine this with the game mechanics section above]
