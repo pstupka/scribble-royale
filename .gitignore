@@ -12,3 +12,9 @@ data_*/
 
 # Binaries
 bin/
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# OSX 
+.DS_Store
