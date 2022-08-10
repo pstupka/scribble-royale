@@ -5,7 +5,7 @@ on:
       godot_version:
         description: "Godot Version"
         required: true
-        default: "3.4.4"
+        default: "3.5"
       export_platform:
         description: "Export Platform - all|windows|linux|web|macos"
         required: true
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-20.04
     if: ${{ github.event.inputs.export_platform == 'windows' || github.event.inputs.export_platform == 'all' }}
     container:
-      image: barichello/godot-ci:3.4.4
+      image: barichello/godot-ci:3.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-20.04
     if: ${{ github.event.inputs.export_platform == 'linux' || github.event.inputs.export_platform == 'all' }}
     container:
-      image: barichello/godot-ci:3.4.4
+      image: barichello/godot-ci:3.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-20.04
     if: ${{ github.event.inputs.export_platform == 'web' || github.event.inputs.export_platform == 'all' }}
     container:
-      image: barichello/godot-ci:3.4.4
+      image: barichello/godot-ci:3.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -152,7 +152,7 @@ jobs:
     runs-on: ubuntu-20.04
     if: ${{ github.event.inputs.export_platform == 'macos' || github.event.inputs.export_platform == 'all' }}
     container:
-      image: barichello/godot-ci:3.4.4
+      image: barichello/godot-ci:3.5
     steps:
       - name: Checkout
         uses: actions/checkout@v1
