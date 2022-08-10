@@ -91,14 +91,14 @@ margin_bottom = -18.0
 [node name="GameVersion" type="Label" parent="Version"]
 margin_right = 182.0
 margin_bottom = 34.0
-text = "0.0.1"
+text = "game_version"
 
 [node name="GodotVersion" type="Label" parent="Version"]
 margin_top = 38.0
 margin_right = 182.0
 margin_bottom = 72.0
 custom_colors/font_color = Color( 0.92549, 0.92549, 0.92549, 1 )
-text = "Godot 3.4.4"
+text = "Godot_version"
 script = SubResource( 1 )
 
 [node name="Credits" type="VBoxContainer" parent="."]
