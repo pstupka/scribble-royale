@@ -3,9 +3,9 @@
 extends Node
 
 
-onready var transitions = get_node_or_null("/root/Transitions")
+onready var transitions: Transition = get_node_or_null("/root/Transitions")
 
-var pause_scenes_on_transitions = false
+var pause_scenes_on_transitions = true
 var prevent_input_on_transitions = true
 var scenes: Scenes
 var size: Vector2
@@ -15,13 +15,15 @@ func _enter_tree() -> void:
 	pause_mode = Node.PAUSE_MODE_PROCESS # needed to make "prevent_input_on_transitions" work even if the game is paused
 	_register_size()
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
-	if transitions:
-		transitions.connect("transition_started", self, "_on_Transitions_transition_started")
-		transitions.connect("transition_finished", self, "_on_Transitions_transition_finished")
+
 #	add_script("Utils", "utils", "res://addons/game-template/utils.gd")
 
 
 func _ready() -> void:
+	if transitions:
+		transitions.connect("transition_started", self, "_on_Transitions_transition_started")
+		transitions.connect("transition_finished", self, "_on_Transitions_transition_finished")
+
 	scenes = preload("res://addons/game-template/scenes.gd").new()
 	scenes.name = "Scenes"
 	get_node("/root/").call_deferred("add_child", scenes)
@@ -68,6 +70,7 @@ func _input(_event: InputEvent):
 func _on_Transitions_transition_started(anim_name):
 	if pause_scenes_on_transitions:
 		get_tree().paused = true
+
 
 
 func _on_Transitions_transition_finished(anim_name):
