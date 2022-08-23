@@ -1,23 +1,44 @@
+class_name Player
 extends KinematicBody2D
 
-signal direction_changed(new_direction)
+signal took_damage(damage)
 
-var look_direction = Vector2.RIGHT setget set_look_direction
+export(float) var max_speed = 200.0
+export(float) var gravity = 1500.0
+export(float) var max_jump_velocity = 1000.0
+export(float) var min_jump_velocity = 600.0
+export(float) var air_acceleration = 1000.0
+export(float) var air_deceleration = 2000.0
+export(float) var air_steering_power = 50.0
 
-
-func take_damage(attacker, amount, effect = null):
-	if is_a_parent_of(attacker):
-		return
-	$States/Stagger.knockback_direction = (attacker.global_position - global_position).normalized()
-	$Health.take_damage(amount, effect)
-
-
-func set_dead(value):
-	set_process_input(not value)
-	set_physics_process(not value)
-	$CollisionPolygon2D.disabled = value
+var _velocity := Vector2.ZERO
+var _speed := 0.0
+var _input_direction := Vector2.ZERO
 
 
-func set_look_direction(value):
-	look_direction = value
-	emit_signal("direction_changed", value)
+func _ready() -> void:
+	pass
+
+
+func _process(_delta: float) -> void:
+	pass
+
+#
+#func _input(event: InputEvent) -> void:
+#	if event.is_action_pressed("jump") and is_on_floor():
+#		_velocity.y = -max_jump_velocity
+#	if event.is_action_released("jump") and _velocity.y < -min_jump_velocity:
+#		_velocity.y = -min_jump_velocity
+
+
+func _apply_gravity(delta) -> void:
+	_velocity.y -= gravity * delta
+
+
+func _apply_movement(_delta) -> void:
+	_velocity.x = lerp(_velocity.x, max_speed * _input_direction.x, 0.5)
+	_velocity = move_and_slide(_velocity, Vector2.UP)
+
+
+func _on_State_transitioned(state_name) -> void:
+	$Label.text = state_name

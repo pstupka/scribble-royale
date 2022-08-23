@@ -1,19 +1,83 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character/body-round/character_roundRed.png" type="Texture" id=2]
-[ext_resource path="res://scenes/actors/player/player-state-machine.gd" type="Script" id=3]
-[ext_resource path="res://scenes/actors/player/states/motion/on-ground/idle-state.gd" type="Script" id=4]
-[ext_resource path="res://scenes/actors/player/states/motion/on-ground/move-state.gd" type="Script" id=5]
-[ext_resource path="res://scenes/actors/player/states/motion/in-air/jump-state.gd" type="Script" id=6]
+[ext_resource path="res://utils/state-machine/state-machine.gd" type="Script" id=3]
+[ext_resource path="res://scenes/actors/player/states/motion/idle-state.gd" type="Script" id=4]
+[ext_resource path="res://scenes/actors/player/states/motion/move-state.gd" type="Script" id=5]
+[ext_resource path="res://scenes/actors/player/states/motion/jump-state.gd" type="Script" id=6]
+[ext_resource path="res://scenes/actors/player/states/motion/fall-state.gd" type="Script" id=7]
+[ext_resource path="res://assets/gfx/PNG/item_hat.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/weapon/item_blaster.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/weapon/item_pencil.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/weapon/item_spear.png" type="Texture" id=11]
+[ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.0
+height = 22.0
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "fall"
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "jump"
+
+[sub_resource type="Animation" id=3]
+resource_name = "move"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyPivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 7.0, 0.0 ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 7
 script = ExtResource( 1 )
+max_speed = 400.0
+gravity = -1500.0
+max_jump_velocity = 600.0
+min_jump_velocity = 400.0
 
 [node name="BodyPivot" type="Position2D" parent="."]
 
@@ -21,22 +85,61 @@ script = ExtResource( 1 )
 position = Vector2( 0, -21 )
 texture = ExtResource( 2 )
 
-[node name="WeaponPivot" type="Position2D" parent="BodyPivot"]
+[node name="Hat" type="Sprite" parent="BodyPivot"]
+position = Vector2( 0, -46 )
+texture = ExtResource( 8 )
+
+[node name="ItemBlaster" type="Sprite" parent="BodyPivot/Hat"]
+visible = false
+position = Vector2( 34.6085, 33.5956 )
+texture = ExtResource( 9 )
+
+[node name="ItemSpear" type="Sprite" parent="BodyPivot/Hat"]
+visible = false
+position = Vector2( -25.7536, 11.3082 )
+texture = ExtResource( 11 )
+
+[node name="ItemPencil" type="Sprite" parent="BodyPivot/Hat"]
+visible = false
+position = Vector2( 57.6254, -22.1008 )
+texture = ExtResource( 10 )
+
+[node name="WeaponPivot" type="Position2D" parent="."]
+position = Vector2( 0, -22 )
+
+[node name="Bow" parent="WeaponPivot" instance=ExtResource( 12 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -22 )
 shape = SubResource( 1 )
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 3 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/fall = SubResource( 5 )
+anims/idle = SubResource( 2 )
+anims/jump = SubResource( 6 )
+anims/move = SubResource( 3 )
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Label" type="Label" parent="."]
+margin_left = -26.0
+margin_top = -90.0
+margin_right = 14.0
+margin_bottom = -76.0
+
+[node name="MotionStateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 4 )
 
-[node name="Move" type="Node" parent="StateMachine"]
+[node name="Move" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 5 )
 
-[node name="Jump" type="Node" parent="StateMachine"]
+[node name="Jump" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 6 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Fall" type="Node" parent="MotionStateMachine"]
+script = ExtResource( 7 )
+
+[connection signal="transitioned" from="MotionStateMachine" to="." method="_on_State_transitioned"]
