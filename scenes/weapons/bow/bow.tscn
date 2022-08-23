@@ -5,7 +5,7 @@
 
 [node name="Bow" type="Node2D"]
 script = ExtResource( 2 )
-shoot_strength = 500
+shoot_strength = 1000
 
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2( 31, 0 )

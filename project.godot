@@ -134,3 +134,8 @@ move_up={
 2d_physics/layer_2="Bullets"
 2d_physics/layer_3="Items"
 2d_physics/layer_4="Players"
+
+[physics]
+
+3d/physics_engine="GodotPhysics"
+common/physics_interpolation=true
