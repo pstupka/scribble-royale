@@ -43,5 +43,9 @@ func _apply_movement(_delta) -> void:
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 
 
+func take_damage(damage: float) -> void:
+	emit_signal("took_damage", damage)
+
+
 func _on_State_transitioned(state_name) -> void:
 	$Label.text = state_name

@@ -33,5 +33,5 @@ func exit() -> void:
 	pass
 
 # TODO: Check if i can use it in the future
-func _on_animation_finished(anim_name):
+func _on_animation_finished(_anim_name) -> void:
 	pass

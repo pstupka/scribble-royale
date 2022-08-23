@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://utils/hitbox.gd"
+}, {
+"base": "Area2D",
+"class": "Hurtbox",
+"language": "GDScript",
+"path": "res://utils/hurtbox.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -50,6 +60,8 @@ _global_script_classes=[ {
 "path": "res://scenes/weapons/weapon.gd"
 } ]
 _global_script_class_icons={
+"Hitbox": "",
+"Hurtbox": "",
 "Player": "",
 "PlayerState": "",
 "SceneData": "",
@@ -71,9 +83,9 @@ config/version="0.0.1"
 
 [autoload]
 
-Game="*res://addons/game-template/game.gd"
-Transitions="*res://addons/game-template/transition/transition.tscn"
 Utils="*res://addons/game-template/utils.gd"
+Transitions="*res://addons/game-template/transition/transition.tscn"
+Game="*res://addons/game-template/game.gd"
 
 [category]
 
@@ -134,6 +146,8 @@ move_up={
 2d_physics/layer_2="Bullets"
 2d_physics/layer_3="Items"
 2d_physics/layer_4="Players"
+2d_physics/layer_5="Hitbox"
+2d_physics/layer_6="Hurtbox"
 
 [physics]
 
