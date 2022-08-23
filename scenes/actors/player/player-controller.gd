@@ -11,6 +11,8 @@ export(float) var air_acceleration = 1000.0
 export(float) var air_deceleration = 2000.0
 export(float) var air_steering_power = 50.0
 
+onready var weapon_pivot: = $WeaponPivot
+
 var _velocity := Vector2.ZERO
 var _speed := 0.0
 var _input_direction := Vector2.ZERO
@@ -21,6 +23,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	weapon_pivot.look_at(get_global_mouse_position())
 	pass
 
 #
