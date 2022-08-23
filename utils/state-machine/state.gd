@@ -1,29 +1,37 @@
+# Virtual base class for all states.
 class_name State
 extends Node
-# Base interface for all states: it doesn't do anything by itself,
-# but forces us to pass the right arguments to the methods below
-# and makes sure every State object had all of these methods.
 
-# warning-ignore:unused_signal
-signal finished(next_state_name)
+# We store a reference to the state machine to call its `transition_to()` method directly.
+var state_machine = null
 
-# Initialize the state. E.g. change the animation.
-func enter():
+
+# All methods below are virtual and called by the state machine.
+func handle_input(_event: InputEvent) -> void:
 	pass
 
 
-# Clean up the state. Reinitialize values like a timer.
-func exit():
+# Corresponds to the `_process()` callback.
+func update(_delta: float) -> void:
 	pass
 
 
-func handle_input(_event):
+# Corresponds to the `_physics_process()` callback.
+func physics_update(_delta: float) -> void:
 	pass
 
 
-func update(_delta):
+# Called by the state machine upon changing the active state. The `msg` parameter
+# is a dictionary with arbitrary data the state can use to initialize itself.
+func enter(_msg := {}) -> void:
 	pass
 
 
-func _on_animation_finished(_anim_name):
+# Called by the state machine before changing the active state. Use this function
+# to clean up the state.
+func exit() -> void:
+	pass
+
+# TODO: Check if i can use it in the future
+func _on_animation_finished(anim_name):
 	pass

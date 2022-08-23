@@ -1,75 +1,50 @@
+# Generic state machine. Initializes states and delegates engine callbacks
+# (_physics_process, _process, _unhandled_input) to the active state.
 class_name StateMachine
 extends Node
-# Base interface for a generic state machine.
-# It handles initializing, setting the machine active or not
-# delegating _physics_process, _input calls to the State nodes,
-# and changing the current/active state.
-# See the PlayerV2 scene for an example on how to use it.
 
-signal state_changed(current_state)
+# Emitted when transitioning to a new state.
+signal transitioned(state_name)
 
-# You should set a starting node from the inspector or on the node that inherits
-# from this state machine interface. If you don't, the game will default to
-# the first state in the state machine's children.
-export(NodePath) var start_state
-var states_map = {}
+export var initial_state := NodePath()
 
-var states_stack = []
-var current_state = null
-var _active = false setget set_active
+var state: State = null
+var previous_state: State = null
 
-func _ready():
-	if not start_state:
-		start_state = get_child(0).get_path()
+
+func _ready() -> void:
+	yield(owner, "ready")
+	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
-		var err = child.connect("finished", self, "_change_state")
-		if err:
-			printerr(err)
-	initialize(start_state)
-
-
-func initialize(initial_state):
-	set_active(true)
-	states_stack.push_front(get_node(initial_state))
-	current_state = states_stack[0]
-	current_state.enter()
-
-
-func set_active(value):
-	_active = value
-	set_physics_process(value)
-	set_process_input(value)
-	if not _active:
-		states_stack = []
-		current_state = null
-
-
-func _unhandled_input(event):
-	current_state.handle_input(event)
-
-
-func _physics_process(delta):
-	current_state.update(delta)
-
-
-func _on_animation_finished(anim_name):
-	if not _active:
-		return
-	current_state._on_animation_finished(anim_name)
-
-
-func _change_state(state_name):
-	if not _active:
-		return
-	current_state.exit()
-
-	if state_name == "previous":
-		states_stack.pop_front()
+		child.state_machine = self
+		
+	if initial_state:
+		state = get_node(initial_state)
 	else:
-		states_stack[0] = states_map[state_name]
+		state = get_children()[0]
+	
+	state.enter()
 
-	current_state = states_stack[0]
-	emit_signal("state_changed", current_state)
 
-	if state_name != "previous":
-		current_state.enter()
+# The state machine subscribes to node callbacks and delegates them to the state objects.
+func _unhandled_input(event: InputEvent) -> void:
+	state.handle_input(event)
+
+
+func _process(delta: float) -> void:
+	state.update(delta)
+
+
+func _physics_process(delta: float) -> void:
+	state.physics_update(delta)
+
+
+func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
+	if not has_node(target_state_name):
+		return
+	previous_state = state
+	previous_state.exit()
+	
+	state = get_node(target_state_name)
+	state.enter(msg)
+	emit_signal("transitioned", state.name)

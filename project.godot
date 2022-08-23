@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "MotionState",
-"class": "GroundState",
+"base": "KinematicBody2D",
+"class": "Player",
 "language": "GDScript",
-"path": "res://scenes/actors/player/states/motion/on-ground/on-ground-state.gd"
+"path": "res://scenes/actors/player/player-controller.gd"
 }, {
 "base": "State",
-"class": "MotionState",
+"class": "PlayerState",
 "language": "GDScript",
-"path": "res://scenes/actors/player/states/motion/motion-state.gd"
+"path": "res://scenes/actors/player/states/motion/player-state.gd"
 }, {
 "base": "Reference",
 "class": "SceneData",
@@ -43,15 +43,21 @@ _global_script_classes=[ {
 "class": "Transition",
 "language": "GDScript",
 "path": "res://addons/game-template/transition/transition.gd"
+}, {
+"base": "Node2D",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://scenes/weapons/weapon.gd"
 } ]
 _global_script_class_icons={
-"GroundState": "",
-"MotionState": "",
+"Player": "",
+"PlayerState": "",
 "SceneData": "",
 "Scenes": "",
 "State": "",
 "StateMachine": "",
-"Transition": ""
+"Transition": "",
+"Weapon": ""
 }
 
 [application]
