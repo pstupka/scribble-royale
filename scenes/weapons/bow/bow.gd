@@ -5,11 +5,6 @@ onready var arrow_scene: PackedScene = preload("res://scenes/bullets/arrow/arrow
 export var shoot_strength = 3000
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot") and can_attack:
-		attack()
-
-
 func attack() -> void:
 	if ammo > 0:
 		spawn_arrow()
