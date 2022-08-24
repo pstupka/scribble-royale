@@ -10,7 +10,7 @@ func physics_update(delta):
 	if (player._velocity.y >= 0):
 		state_machine.transition_to("Fall")
 	
-	var input_direction = get_input_direction()
+	var input_direction = player.get_input_direction()
 	player._input_direction = input_direction
 	player._apply_gravity(delta)
 	player._apply_movement(delta)

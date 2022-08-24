@@ -74,10 +74,12 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
 script = ExtResource( 1 )
+player_id = 666
 max_speed = 400.0
 gravity = -1500.0
 max_jump_velocity = 600.0
 min_jump_velocity = 400.0
+rotation_speed = 20.0
 
 [node name="BodyPivot" type="Position2D" parent="."]
 

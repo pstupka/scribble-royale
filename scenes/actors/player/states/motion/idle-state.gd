@@ -6,7 +6,7 @@ func enter(_msg := {}):
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump") and player.is_on_floor():
+	if event.is_action_pressed("jump_p%s" % player.player_id) and player.is_on_floor():
 		state_machine.transition_to("Jump")
 
 
@@ -21,6 +21,6 @@ func physics_update(_delta: float) -> void:
 		state_machine.transition_to("Fall")
 		return
 
-	if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+	if player.get_input_direction().x:
 		state_machine.transition_to("Move")
 

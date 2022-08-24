@@ -20,7 +20,7 @@ func enter(msg := {}):
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump") and coyote_jump:
+	if event.is_action_pressed("jump_p%s" % player.player_id) and coyote_jump:
 		state_machine.transition_to("Jump")
 
 
@@ -31,7 +31,7 @@ func physics_update(delta):
 		else:
 			state_machine.transition_to("Move")
 	
-	var input_direction = get_input_direction()
+	var input_direction = player.get_input_direction()
 	player._input_direction = input_direction
 	player._apply_gravity(delta)
 	player._apply_movement(delta)

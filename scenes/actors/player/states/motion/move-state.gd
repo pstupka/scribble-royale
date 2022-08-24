@@ -5,12 +5,12 @@ func enter(_msg := {}):
 
 
 func handle_input(event):
-	if event.is_action_pressed("jump") and player.is_on_floor():
+	if event.is_action_pressed("jump_p%s" % player.player_id) and player.is_on_floor():
 		state_machine.transition_to("Jump")
 
 
 func physics_update(delta):	
-	var input_direction = get_input_direction()
+	var input_direction = player.get_input_direction()
 	player._input_direction = input_direction
 	player._apply_gravity(delta)
 	player._apply_movement(delta)
