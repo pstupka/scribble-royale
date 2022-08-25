@@ -4,6 +4,9 @@ extends KinematicBody2D
 signal took_damage(damage)
 
 export(int) var player_id = 0
+var color setget set_player_color
+
+export(Color) var initial_color = Globals.COLORS.Purple
 
 export(float) var max_speed = 200.0
 export(float) var gravity = 1500.0
@@ -17,6 +20,13 @@ export(float) var rotation_speed = 10.0
 
 onready var weapon_pivot: = $WeaponPivot
 onready var weapon: = $WeaponPivot/Bow
+onready var health_indicator: = $HealthIndicator
+
+var max_health: float = 100.0
+var health: float = 100.0
+
+enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
+var current_emotion: int = Emotion.HAPPY setget set_emotion
 
 var _velocity := Vector2.ZERO
 var _speed := 0.0
@@ -24,12 +34,17 @@ var _input_direction := Vector2.ZERO
 
 
 func _ready() -> void:
-	pass
+	randomize()
+	$BodyPivot/Outline.frame = randi() % 4
+	set_player_color(initial_color)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack_p%s" % player_id):
 		weapon.attack()
+#	TODO: To erase setting emotion
+	if event.is_action_pressed("emotion"): 
+		set_emotion(randi() % 4)
 
 
 func _process(delta: float) -> void:
@@ -37,13 +52,6 @@ func _process(delta: float) -> void:
 	if look_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
-
-#
-#func _input(event: InputEvent) -> void:
-#	if event.is_action_pressed("jump") and is_on_floor():
-#		_velocity.y = -max_jump_velocity
-#	if event.is_action_released("jump") and _velocity.y < -min_jump_velocity:
-#		_velocity.y = -min_jump_velocity
 
 
 func _apply_gravity(delta) -> void:
@@ -56,7 +64,20 @@ func _apply_movement(_delta) -> void:
 
 
 func take_damage(damage: float) -> void:
-	emit_signal("took_damage", damage)
+	var tween: = get_tree().create_tween()\
+		.set_trans(Tween.TRANS_QUART)\
+		.set_ease(Tween.EASE_OUT)
+	health -= damage
+	
+	if health > 0:
+		tween.tween_property(health_indicator, "value", health, 0.2)
+	else:
+		tween.tween_property(health_indicator, "value", 0.0, 0.2)
+		die()
+
+
+func die() -> void:
+	call_deferred("queue_free")
 
 
 func get_input_direction() -> Vector2:
@@ -67,5 +88,23 @@ func get_input_direction() -> Vector2:
 		"move_down_p%s" % player_id)
 
 
+func set_emotion(emotion) -> void:
+	current_emotion = emotion
+	$BodyPivot/Mouth.region_rect = Rect2(48 * emotion , 0, 48, 64)
+
+
+func set_player_color(new_color: Color) -> void:
+	color = new_color
+	$BodyPivot/Fill.self_modulate = new_color
+	$HealthIndicator.tint_progress = new_color
+	weapon.color = new_color
+
+
 func _on_State_transitioned(state_name) -> void:
 	$Label.text = state_name
+
+
+func _on_BlinkTimer_timeout() -> void:
+	$BodyPivot/BlinkTimer.wait_time = randi() % 10 + 1
+	$BodyPivot/Eyes.frame = 0
+	$BodyPivot/Eyes.play("blink")

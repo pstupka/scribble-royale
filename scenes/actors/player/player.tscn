@@ -1,17 +1,20 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/character/body-round/character_roundRed.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/character/body-round/outline.png" type="Texture" id=2]
 [ext_resource path="res://utils/state-machine/state-machine.gd" type="Script" id=3]
 [ext_resource path="res://scenes/actors/player/states/motion/idle-state.gd" type="Script" id=4]
 [ext_resource path="res://scenes/actors/player/states/motion/move-state.gd" type="Script" id=5]
 [ext_resource path="res://scenes/actors/player/states/motion/jump-state.gd" type="Script" id=6]
 [ext_resource path="res://scenes/actors/player/states/motion/fall-state.gd" type="Script" id=7]
 [ext_resource path="res://assets/gfx/PNG/item_hat.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/weapon/item_blaster.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/weapon/item_pencil.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/weapon/item_spear.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/character/body-round/fill.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/character/body-round/mouth.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/character/body-round/eyes.png" type="Texture" id=11]
 [ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=12]
+[ext_resource path="res://utils/hurtbox.gd" type="Script" id=13]
+[ext_resource path="res://assets/sprites/ui/ui_healthbar_over.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/ui/ui_healthbar_under.png" type="Texture" id=16]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.0
@@ -71,6 +74,59 @@ tracks/0/keys = {
 "values": [ 0.0, 7.0, 0.0 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 24.0
+height = 24.0
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 48, 64 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 48, 64 )
+
+[sub_resource type="SpriteFrames" id=16]
+animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": false,
+"name": "blink",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
 script = ExtResource( 1 )
@@ -80,36 +136,6 @@ gravity = -1500.0
 max_jump_velocity = 600.0
 min_jump_velocity = 400.0
 rotation_speed = 20.0
-
-[node name="BodyPivot" type="Position2D" parent="."]
-
-[node name="Body" type="Sprite" parent="BodyPivot"]
-position = Vector2( 0, -21 )
-texture = ExtResource( 2 )
-
-[node name="Hat" type="Sprite" parent="BodyPivot"]
-position = Vector2( 0, -46 )
-texture = ExtResource( 8 )
-
-[node name="ItemBlaster" type="Sprite" parent="BodyPivot/Hat"]
-visible = false
-position = Vector2( 34.6085, 33.5956 )
-texture = ExtResource( 9 )
-
-[node name="ItemSpear" type="Sprite" parent="BodyPivot/Hat"]
-visible = false
-position = Vector2( -25.7536, 11.3082 )
-texture = ExtResource( 11 )
-
-[node name="ItemPencil" type="Sprite" parent="BodyPivot/Hat"]
-visible = false
-position = Vector2( 57.6254, -22.1008 )
-texture = ExtResource( 10 )
-
-[node name="WeaponPivot" type="Position2D" parent="."]
-position = Vector2( 0, -22 )
-
-[node name="Bow" parent="WeaponPivot" instance=ExtResource( 12 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -22 )
@@ -144,4 +170,58 @@ script = ExtResource( 6 )
 [node name="Fall" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 7 )
 
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0, -24 )
+shape = SubResource( 7 )
+
+[node name="HealthIndicator" type="TextureProgress" parent="."]
+margin_left = -33.0
+margin_top = -76.0
+margin_right = 33.0
+margin_bottom = 38.0
+value = 100.0
+texture_under = ExtResource( 16 )
+texture_over = ExtResource( 14 )
+texture_progress = ExtResource( 16 )
+
+[node name="BodyPivot" type="Position2D" parent="."]
+
+[node name="Outline" type="AnimatedSprite" parent="BodyPivot"]
+position = Vector2( 0, -22 )
+frames = SubResource( 12 )
+playing = true
+
+[node name="Fill" type="Sprite" parent="BodyPivot"]
+position = Vector2( 0, -22 )
+texture = ExtResource( 9 )
+
+[node name="Hat" type="Sprite" parent="BodyPivot"]
+visible = false
+position = Vector2( 0, -46 )
+texture = ExtResource( 8 )
+
+[node name="Mouth" type="Sprite" parent="BodyPivot"]
+position = Vector2( 0, -22 )
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 48, 64 )
+
+[node name="Eyes" type="AnimatedSprite" parent="BodyPivot"]
+position = Vector2( 0, -22 )
+frames = SubResource( 16 )
+animation = "blink"
+frame = 1
+
+[node name="BlinkTimer" type="Timer" parent="BodyPivot"]
+autostart = true
+
+[node name="WeaponPivot" type="Position2D" parent="."]
+position = Vector2( 0, -22 )
+
+[node name="Bow" parent="WeaponPivot" instance=ExtResource( 12 )]
+
 [connection signal="transitioned" from="MotionStateMachine" to="." method="_on_State_transitioned"]
+[connection signal="timeout" from="BodyPivot/BlinkTimer" to="." method="_on_BlinkTimer_timeout"]

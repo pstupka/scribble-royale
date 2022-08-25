@@ -17,5 +17,6 @@ func _ready() -> void:
 	# help prevent some bugs that are difficult to understand.
 	assert(player != null)
 
-
+func handle_input(event: InputEvent) -> void:
+	.handle_input(event)
 
