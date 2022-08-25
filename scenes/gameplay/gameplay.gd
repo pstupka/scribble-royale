@@ -22,5 +22,8 @@ func pre_start(params):
 # `start()` is called when the graphic transition ends.
 func start():
 	print("gameplay.gd: start() called")
+	print("Connected controllers:")
+	for id in Input.get_connected_joypads().size():
+		print("Controller: %s, id: %s" % [Input.get_joy_name(id), id]) 
 
 
