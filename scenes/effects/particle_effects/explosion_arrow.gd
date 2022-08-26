@@ -1,6 +1,9 @@
 extends Particles2D
 
 
+func init(color: Color) -> void:
+	self_modulate = color
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	emitting = true

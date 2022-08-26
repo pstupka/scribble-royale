@@ -7,12 +7,13 @@ var color: Color setget set_color
 
 export var explosion_particles_scene: PackedScene
 
+
 func destroy() -> void:
 	if explosion_particles_scene:
 		var explosion_instance = explosion_particles_scene.instance()
 		get_tree().current_scene.add_child(explosion_instance)
+		explosion_instance.init(color)
 		explosion_instance.global_transform = global_transform
-		explosion_instance.self_modulate = color
 	call_deferred("queue_free")
 
 

@@ -25,5 +25,3 @@ func start():
 	print("Connected controllers:")
 	for id in Input.get_connected_joypads().size():
 		print("Controller: %s, id: %s" % [Input.get_joy_name(id), id]) 
-
-

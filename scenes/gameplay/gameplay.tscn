@@ -54,7 +54,6 @@ initial_color = Color( 0.988235, 0.360784, 0.396078, 1 )
 
 [node name="Player3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 419, -223 )
-player_id = 0
 initial_color = Color( 0.215686, 0.85098, 0.54902, 1 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
