@@ -30,3 +30,9 @@ func set_color(new_color: Color) -> void:
 func _on_Arrow_body_entered(_body: Node) -> void:
 	call_deferred("set_mode", RigidBody2D.MODE_STATIC)
 	$CollisionShape2D.call_deferred("set_disabled", true)
+	$DestroyDelay.start()
+	$AnimationPlayer.play("destroy")
+
+
+func _on_DestroyDelay_timeout() -> void:
+	call_deferred("queue_free")

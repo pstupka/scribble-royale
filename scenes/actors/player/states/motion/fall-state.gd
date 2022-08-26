@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func enter(msg := {}):
-	player.get_node("AnimationPlayer").play("idle")
+	player.get_node("AnimationPlayer").play("fall")
 	if msg.has("coyote_jump"):
 		coyote_timer.start()
 		coyote_jump = true
