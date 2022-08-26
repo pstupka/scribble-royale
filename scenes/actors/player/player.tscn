@@ -280,7 +280,7 @@ texture_progress = ExtResource( 16 )
 [node name="Outline" type="AnimatedSprite" parent="BodyPivot"]
 position = Vector2( 0, -22 )
 frames = SubResource( 12 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Fill" type="Sprite" parent="BodyPivot"]
@@ -306,6 +306,9 @@ frame = 1
 
 [node name="BlinkTimer" type="Timer" parent="BodyPivot"]
 autostart = true
+
+[node name="FootstepSpawn" type="Position2D" parent="BodyPivot"]
+position = Vector2( 0, 8 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 position = Vector2( 0, -22 )

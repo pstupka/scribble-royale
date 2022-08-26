@@ -3,8 +3,7 @@ extends PlayerState
 func enter(_msg := {}):
 	player.get_node("AnimationPlayer").play("jump")
 	player._velocity.y = -player.max_jump_velocity
-#	if event.is_action_released("jump") and _velocity.y < -min_jump_velocity:
-#		_velocity.y = -min_jump_velocity
+
 
 
 func handle_input(event: InputEvent) -> void:
