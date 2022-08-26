@@ -26,7 +26,7 @@ var max_health: float = 100.0
 var health: float = 100.0
 
 enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
-var current_emotion: int = Emotion.HAPPY setget set_emotion
+var current_emotion: int = Emotion.HAPPY
 
 var _velocity := Vector2.ZERO
 var _speed := 0.0
@@ -42,9 +42,6 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack_p%s" % player_id):
 		weapon.attack()
-#	TODO: To erase setting emotion
-	if event.is_action_pressed("emotion"): 
-		set_emotion(randi() % 4)
 
 
 func _process(delta: float) -> void:
@@ -71,6 +68,7 @@ func take_damage(damage: float) -> void:
 	
 	if health > 0:
 		tween.tween_property(health_indicator, "value", health, 0.2)
+		set_emotion()
 	else:
 		tween.tween_property(health_indicator, "value", 0.0, 0.2)
 		die()
@@ -88,9 +86,12 @@ func get_input_direction() -> Vector2:
 		"move_down_p%s" % player_id)
 
 
-func set_emotion(emotion) -> void:
-	current_emotion = emotion
-	$BodyPivot/Mouth.region_rect = Rect2(48 * emotion , 0, 48, 64)
+func set_emotion() -> void:
+	if health < 0.7 * max_health:
+		current_emotion = Emotion.NEUTRAL
+	if health < 0.3 * max_health:
+		current_emotion = Emotion.SAD
+	$BodyPivot/Mouth.region_rect = Rect2(48 * current_emotion , 0, 48, 64)
 
 
 func set_player_color(new_color: Color) -> void:
@@ -105,6 +106,6 @@ func _on_State_transitioned(state_name) -> void:
 
 
 func _on_BlinkTimer_timeout() -> void:
-	$BodyPivot/BlinkTimer.wait_time = randi() % 10 + 1
+	$BodyPivot/BlinkTimer.wait_time = randi() % 6 + 1
 	$BodyPivot/Eyes.frame = 0
 	$BodyPivot/Eyes.play("blink")
