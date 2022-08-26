@@ -280,15 +280,12 @@ texture_progress = ExtResource( 16 )
 [node name="Outline" type="AnimatedSprite" parent="BodyPivot"]
 position = Vector2( 0, -22 )
 frames = SubResource( 12 )
-frame = 2
-playing = true
 
 [node name="Fill" type="Sprite" parent="BodyPivot"]
 position = Vector2( 0, -22 )
 texture = ExtResource( 9 )
 
 [node name="Hat" type="Sprite" parent="BodyPivot"]
-visible = false
 position = Vector2( 0, -46 )
 texture = ExtResource( 8 )
 
