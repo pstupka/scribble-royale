@@ -19,6 +19,7 @@ export(float) var air_steering_power = 50.0
 
 export(float) var rotation_speed = 10.0
 
+onready var body_pivot: = $BodyPivot
 onready var weapon_pivot: = $WeaponPivot
 onready var weapon: = $WeaponPivot/Bow
 onready var health_indicator: = $HealthIndicator
@@ -48,6 +49,9 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	var look_direction = get_input_direction()
 	if look_direction:
+		body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
+		body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
+		body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
 
