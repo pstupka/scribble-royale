@@ -7,6 +7,7 @@ export(int) var player_id = 0
 var color setget set_player_color
 
 export(Color) var initial_color = Globals.COLORS.Purple
+onready var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 
 export(float) var max_speed = 200.0
 export(float) var gravity = 1500.0
@@ -100,6 +101,14 @@ func set_player_color(new_color: Color) -> void:
 	$HealthIndicator.tint_progress = new_color
 	weapon.color = new_color
 
+
+func spawn_footstep() -> void:
+	var footstep_instance = footstep_scene.instance()
+	add_child(footstep_instance)
+	footstep_instance.init(color)
+	footstep_instance.process_material.direction.x = -sign(_input_direction.x)
+	footstep_instance.set_as_toplevel(true)
+	footstep_instance.global_position = $BodyPivot/FootstepSpawn.global_position
 
 func _on_State_transitioned(state_name) -> void:
 	$Label.text = state_name

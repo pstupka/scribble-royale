@@ -23,6 +23,7 @@ func _ready() -> void:
 	else:
 		state = get_children()[0]
 	
+	previous_state = state
 	state.enter()
 
 

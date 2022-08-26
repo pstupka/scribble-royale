@@ -3,6 +3,8 @@ extends PlayerState
 func enter(_msg := {}):
 	player.get_node("AnimationPlayer").play("idle")
 	player._velocity = Vector2.ZERO
+	if state_machine.previous_state.name == "Fall":
+		player.spawn_footstep()
 
 
 func handle_input(event: InputEvent) -> void:
