@@ -45,6 +45,7 @@ tile_data = PoolIntArray( -393227, 0, 0, -393226, 0, 0, -393225, 0, 0, -393224, 
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 107, -286 )
+player_id = 0
 initial_color = Color( 1, 0.713726, 0, 1 )
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
