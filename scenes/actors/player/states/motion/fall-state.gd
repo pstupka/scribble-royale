@@ -15,12 +15,11 @@ func enter(msg := {}):
 	if msg.has("coyote_jump"):
 		coyote_timer.start()
 		coyote_jump = true
-#	if event.is_action_released("jump") and _velocity.y < -min_jump_velocity:
-#		_velocity.y = -min_jump_velocity
+
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump_p%s" % player.player_id) and coyote_jump:
+	if (event.is_action_pressed("jump_p%s" % player.player_id) and (coyote_jump or player.multi_jump_counter > 0)):
 		state_machine.transition_to("Jump")
 
 

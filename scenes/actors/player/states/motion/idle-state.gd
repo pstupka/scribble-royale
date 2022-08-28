@@ -5,6 +5,7 @@ func enter(_msg := {}):
 	player._velocity = Vector2.ZERO
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
+	player.multi_jump_reset()
 
 
 func handle_input(event: InputEvent) -> void:

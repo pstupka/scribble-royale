@@ -37,7 +37,8 @@ script = ExtResource( 5 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
-cell_size = Vector2( 60, 60 )
+cell_size = Vector2( 61, 61 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 show_collision = true
 collision_mask = 0
 format = 1

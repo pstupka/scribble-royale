@@ -223,7 +223,7 @@ max_speed = 400.0
 gravity = -1500.0
 max_jump_velocity = 600.0
 min_jump_velocity = 400.0
-rotation_speed = 20.0
+rotation_speed = 40.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -21 )
@@ -280,6 +280,7 @@ texture_progress = ExtResource( 16 )
 [node name="Outline" type="AnimatedSprite" parent="BodyPivot"]
 position = Vector2( 0, -22 )
 frames = SubResource( 12 )
+frame = 1
 
 [node name="Fill" type="Sprite" parent="BodyPivot"]
 position = Vector2( 0, -22 )

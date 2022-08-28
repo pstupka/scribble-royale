@@ -1,7 +1,6 @@
 class_name Player
 extends KinematicBody2D
 
-signal took_damage(damage)
 
 export(int) var player_id = 0
 var color setget set_player_color
@@ -34,11 +33,15 @@ var _velocity := Vector2.ZERO
 var _speed := 0.0
 var _input_direction := Vector2.ZERO
 
+export(int) var multi_jump := 2
+var multi_jump_counter
+
 
 func _ready() -> void:
 	randomize()
 	$BodyPivot/Outline.frame = randi() % 4
 	set_player_color(initial_color)
+	multi_jump_counter = multi_jump
 
 
 func _input(event: InputEvent) -> void:
@@ -49,9 +52,10 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	var look_direction = get_input_direction()
 	if look_direction:
-		body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
-		body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
-		body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
+		if look_direction.x:
+			body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
+			body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
+			body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
 
@@ -113,6 +117,11 @@ func spawn_footstep() -> void:
 	footstep_instance.process_material.direction.x = -sign(_input_direction.x)
 	footstep_instance.set_as_toplevel(true)
 	footstep_instance.global_position = $BodyPivot/FootstepSpawn.global_position
+
+
+func multi_jump_reset() -> void:
+	multi_jump_counter = multi_jump
+
 
 func _on_State_transitioned(state_name) -> void:
 	$Label.text = state_name
