@@ -15,6 +15,7 @@ func enter(_msg := {}):
 	footstep_timer.start()
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
+	player.multi_jump_reset()
 
 
 func handle_input(event):
