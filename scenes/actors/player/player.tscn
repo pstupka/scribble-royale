@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character/body-round/outline.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=12]
 [ext_resource path="res://utils/hurtbox.gd" type="Script" id=13]
 [ext_resource path="res://assets/sprites/ui/ui_healthbar_over.png" type="Texture" id=14]
+[ext_resource path="res://assets/shaders/wobble_shader.tres" type="Material" id=15]
 [ext_resource path="res://assets/sprites/ui/ui_healthbar_under.png" type="Texture" id=16]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -257,6 +258,7 @@ texture_progress = ExtResource( 16 )
 [node name="BodyPivot" type="Position2D" parent="."]
 
 [node name="Outline" type="AnimatedSprite" parent="BodyPivot"]
+material = ExtResource( 15 )
 position = Vector2( 0, -22 )
 frames = SubResource( 12 )
 frame = 1
@@ -266,6 +268,7 @@ position = Vector2( 0, -22 )
 texture = ExtResource( 9 )
 
 [node name="Hat" type="Sprite" parent="BodyPivot"]
+material = ExtResource( 15 )
 position = Vector2( 0, -46 )
 texture = ExtResource( 8 )
 
