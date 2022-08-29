@@ -125,9 +125,3 @@ func multi_jump_reset() -> void:
 
 func _on_State_transitioned(state_name) -> void:
 	$Label.text = state_name
-
-
-func _on_BlinkTimer_timeout() -> void:
-	$BodyPivot/BlinkTimer.wait_time = randi() % 6 + 1
-	$BodyPivot/Eyes.frame = 0
-	$BodyPivot/Eyes.play("blink")

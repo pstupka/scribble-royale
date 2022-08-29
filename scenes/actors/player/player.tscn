@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character/body-round/outline.png" type="Texture" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/gfx/PNG/item_hat.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/character/body-round/fill.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/character/body-round/mouth.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/character/body-round/eyes.png" type="Texture" id=11]
+[ext_resource path="res://scenes/props/player_eyes/eyes.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=12]
 [ext_resource path="res://utils/hurtbox.gd" type="Script" id=13]
 [ext_resource path="res://assets/sprites/ui/ui_healthbar_over.png" type="Texture" id=14]
@@ -167,18 +167,22 @@ radius = 24.0
 height = 24.0
 
 [sub_resource type="AtlasTexture" id=8]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 48, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 144, 0, 48, 64 )
 
@@ -188,31 +192,6 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 7.0
-} ]
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 48, 64 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 11 )
-region = Rect2( 48, 0, 48, 64 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 11 )
-region = Rect2( 48, 0, 48, 64 )
-
-[sub_resource type="SpriteFrames" id=16]
-animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ) ],
-"loop": false,
-"name": "blink",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
 } ]
 
 [node name="Player" type="KinematicBody2D"]
@@ -296,14 +275,7 @@ texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 48, 64 )
 
-[node name="Eyes" type="AnimatedSprite" parent="BodyPivot"]
-position = Vector2( 0, -22 )
-frames = SubResource( 16 )
-animation = "blink"
-frame = 1
-
-[node name="BlinkTimer" type="Timer" parent="BodyPivot"]
-autostart = true
+[node name="Eyes" parent="BodyPivot" instance=ExtResource( 11 )]
 
 [node name="FootstepSpawn" type="Position2D" parent="BodyPivot"]
 position = Vector2( 0, 8 )
@@ -314,4 +286,3 @@ position = Vector2( 0, -22 )
 [node name="Bow" parent="WeaponPivot" instance=ExtResource( 12 )]
 
 [connection signal="transitioned" from="MotionStateMachine" to="." method="_on_State_transitioned"]
-[connection signal="timeout" from="BodyPivot/BlinkTimer" to="." method="_on_BlinkTimer_timeout"]
