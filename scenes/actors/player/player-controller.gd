@@ -39,9 +39,11 @@ var multi_jump_counter
 
 func _ready() -> void:
 	randomize()
-	$BodyPivot/Outline.frame = randi() % 4
 	set_player_color(initial_color)
 	multi_jump_counter = multi_jump
+	
+	health_indicator.max_value = max_health
+	health_indicator.value = health
 
 
 func _input(event: InputEvent) -> void:
@@ -74,12 +76,10 @@ func take_damage(damage: float) -> void:
 		.set_trans(Tween.TRANS_QUART)\
 		.set_ease(Tween.EASE_OUT)
 	health -= damage
-	
-	if health > 0:
-		tween.tween_property(health_indicator, "value", health, 0.2)
-		set_emotion()
-	else:
-		tween.tween_property(health_indicator, "value", 0.0, 0.2)
+	health = clamp(health, 0, max_health)
+	tween.tween_property(health_indicator, "value", health, 0.2)
+	set_emotion()
+	if health <= 0:
 		die()
 
 
@@ -106,7 +106,7 @@ func set_emotion() -> void:
 func set_player_color(new_color: Color) -> void:
 	color = new_color
 	$BodyPivot/Fill.self_modulate = new_color
-	$HealthIndicator.tint_progress = new_color
+	health_indicator.tint_progress = new_color
 	weapon.color = new_color
 
 

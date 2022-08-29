@@ -31,7 +31,8 @@ void fragment(){
 */"
 
 [sub_resource type="OpenSimplexNoise" id=15]
-lacunarity = 0.1
+octaves = 1
+persistence = 1.0
 
 [sub_resource type="NoiseTexture" id=16]
 seamless = true
@@ -39,7 +40,7 @@ noise = SubResource( 15 )
 
 [resource]
 shader = SubResource( 13 )
-shader_param/strength = 0.03
+shader_param/strength = 0.02
 shader_param/speed = 10.0
 shader_param/frames = 5
 shader_param/flowMap = SubResource( 16 )
