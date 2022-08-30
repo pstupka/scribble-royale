@@ -7,4 +7,5 @@ const COLORS: Dictionary = {
 	"Red": Color("fc5c65"),
 	"Green": Color("37d98c"),
 	"Yellow": Color("ffb600"),
+	"Grey": Color("c9c9c9")
 }
