@@ -15,6 +15,8 @@ func enter(msg := {}):
 	if msg.has("coyote_jump"):
 		coyote_timer.start()
 		coyote_jump = true
+	if not msg.has("double_jump"):
+		player.multi_jump_counter = 0
 
 
 

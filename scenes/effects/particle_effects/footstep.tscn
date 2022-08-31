@@ -25,7 +25,6 @@ scale = 0.5
 color_ramp = SubResource( 4 )
 
 [node name="Footstep" type="Particles2D"]
-emitting = false
 amount = 5
 lifetime = 0.4
 one_shot = true
