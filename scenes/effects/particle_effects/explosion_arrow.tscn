@@ -19,7 +19,6 @@ scale_random = 0.21
 
 [node name="ExplosionArrow" type="Particles2D"]
 position = Vector2( 10, 0 )
-emitting = false
 amount = 20
 lifetime = 0.4
 one_shot = true
