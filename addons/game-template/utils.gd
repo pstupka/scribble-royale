@@ -15,3 +15,17 @@ func reparent_node(node: Node2D, new_parent, update_transform = false):
 	new_parent.add_child(node)
 	if update_transform:
 		node.global_transform = previous_xform
+
+
+func colorize_texture(texture: Texture, color: Color) -> Texture:
+	var texture_img = texture.get_data()
+	var duplicate_image = texture_img.duplicate()
+	duplicate_image.fill(color)
+	texture_img.blend_rect_mask(duplicate_image,
+		texture_img,
+		Rect2(Vector2.ZERO, texture.get_size()),
+		Vector2.ZERO)
+	var new_image_texture := ImageTexture.new()
+	new_image_texture.create_from_image(texture_img)
+	return new_image_texture
+	

@@ -1,8 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/sprites/bullet/item_arrow.png" type="Texture" id=1]
 [ext_resource path="res://scenes/bullets/arrow/arrow.gd" type="Script" id=2]
 [ext_resource path="res://scenes/effects/particle_effects/explosion_arrow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/SplatterEffect/ParticleCollider.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt00.png" type="Texture" id=5]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt01.png" type="Texture" id=6]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt08.png" type="Texture" id=7]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt05.png" type="Texture" id=8]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt10.png" type="Texture" id=9]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt04.png" type="Texture" id=10]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt09.png" type="Texture" id=11]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt02.png" type="Texture" id=12]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt03.png" type="Texture" id=13]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt06.png" type="Texture" id=14]
+[ext_resource path="res://assets/gfx/splat-pack/PNG/64px/splatt07.png" type="Texture" id=15]
 
 [sub_resource type="RayShape2D" id=1]
 length = 31.0
@@ -86,6 +98,10 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 4.0
+height = 30.0
+
 [node name="Arrow" type="RigidBody2D"]
 collision_layer = 34
 mode = 2
@@ -95,6 +111,7 @@ contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )
 explosion_particles_scene = ExtResource( 3 )
+splat_textures = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 9 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -112,5 +129,13 @@ anims/destroy = SubResource( 2 )
 wait_time = 5.5
 one_shot = true
 
+[node name="ParticleCollider" parent="." instance=ExtResource( 4 )]
+collision_mask = 524289
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParticleCollider"]
+rotation = 1.5708
+shape = SubResource( 4 )
+
 [connection signal="body_entered" from="." to="." method="_on_Arrow_body_entered"]
 [connection signal="timeout" from="DestroyDelay" to="." method="_on_DestroyDelay_timeout"]
+[connection signal="particle_collided" from="ParticleCollider" to="." method="_on_ParticleCollider_particle_collided"]

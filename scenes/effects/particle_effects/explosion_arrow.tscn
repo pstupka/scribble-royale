@@ -15,13 +15,12 @@ initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.5
-scale_random = 0.21
+scale_random = 0.37
 
 [node name="ExplosionArrow" type="Particles2D"]
 position = Vector2( 10, 0 )
 amount = 20
 lifetime = 0.4
-one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 2 )
 texture = ExtResource( 1 )

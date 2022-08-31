@@ -7,6 +7,11 @@ var color: Color setget set_color
 
 export var explosion_particles_scene: PackedScene
 
+export(Array, Texture) var splat_textures
+
+
+func _ready() -> void:
+	randomize()
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 	var xform = state.get_transform()
@@ -30,7 +35,7 @@ func destroy() -> void:
 func set_color(new_color: Color) -> void:
 	color = new_color
 	$Sprite.self_modulate = new_color
-
+	
 
 func _on_Arrow_body_entered(_body: Node) -> void:
 	call_deferred("set_mode", RigidBody2D.MODE_STATIC)
@@ -41,3 +46,7 @@ func _on_Arrow_body_entered(_body: Node) -> void:
 
 func _on_DestroyDelay_timeout() -> void:
 	call_deferred("queue_free")
+
+
+func _on_ParticleCollider_particle_collided() -> void:
+	$ParticleCollider.draw_spot_at_collision(splat_textures[randi() % splat_textures.size()], color)

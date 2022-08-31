@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/Examples/Simple/Main.gd" type="Script" id=1]
+[ext_resource path="res://src/Examples/MainTileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://src/Examples/Simple/Particle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/scribble/background_cloudA.png" type="Texture" id=8]
+[ext_resource path="res://addons/SplatterEffect/SplatLayer.gd" type="Script" id=9]
+
+[sub_resource type="ImageTexture" id=7]
+size = Vector2( 2, 2 )
+
+[sub_resource type="ImageTexture" id=8]
+size = Vector2( 2, 2 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+Particle = ExtResource( 6 )
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 60, 60 )
+collision_layer = 524289
+format = 1
+tile_data = PoolIntArray( 327680, 24, 0, 327691, 22, 0, 393216, 18, 0, 393221, 22, 0, 393227, 1, 0, 393230, 23, 0, 458752, 15, 0, 458753, 14, 0, 458754, 26, 0, 458757, 1, 0, 458763, 3, 0, 458766, 26, 0, 458767, 27, 0, 458768, 26, 0, 524288, 0, 0, 524289, 0, 0, 524290, 13, 0, 524291, 13, 0, 524292, 13, 0, 524293, 21, 0, 524294, 11, 0, 524295, 4, 0, 524296, 4, 0, 524297, 4, 0, 524298, 11, 0, 524299, 21, 0, 524300, 12, 0, 524301, 12, 0, 524302, 12, 0, 524303, 12, 0, 524304, 12, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 16, 0, 589829, 21, 0, 589831, 2, 0, 589832, 2, 0, 589833, 2, 0, 589835, 21, 0, 589836, 0, 0, 589837, 16, 0, 589838, 0, 0, 589839, 16, 0, 589840, 0, 0 )
+
+[node name="SplatLayer" type="Node2D" parent="TileMap2"]
+script = ExtResource( 9 )
+
+[node name="Mask" type="Light2D" parent="TileMap2/SplatLayer"]
+texture = SubResource( 7 )
+mode = 3
+range_item_cull_mask = 524288
+
+[node name="Canvas" type="Sprite" parent="TileMap2/SplatLayer"]
+light_mask = 524288
+texture = SubResource( 8 )
+centered = false
+
+[node name="Cloud" type="Sprite" parent="."]
+z_index = 10
+texture = ExtResource( 8 )
+
+[node name="Position2D" type="Position2D" parent="Cloud"]
+position = Vector2( 4.45115, 30.052 )
+
+[node name="Position2D2" type="Position2D" parent="Cloud"]
+position = Vector2( 16.3113, 30.052 )
+
+[node name="Position2D3" type="Position2D" parent="Cloud"]
+position = Vector2( 31.1605, 30.052 )
+
+[node name="Position2D4" type="Position2D" parent="Cloud"]
+position = Vector2( 44.5956, 30.052 )
+
+[node name="Position2D5" type="Position2D" parent="Cloud"]
+position = Vector2( -49.4497, 30.052 )
+
+[node name="Position2D6" type="Position2D" parent="Cloud"]
+position = Vector2( -36.0146, 30.052 )
+
+[node name="Position2D7" type="Position2D" parent="Cloud"]
+position = Vector2( -21.1654, 30.052 )
+
+[node name="Position2D8" type="Position2D" parent="Cloud"]
+position = Vector2( -7.73036, 30.052 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
