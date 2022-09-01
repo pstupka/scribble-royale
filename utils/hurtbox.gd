@@ -19,6 +19,8 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	if owner.has_method("take_damage"):
 		owner.take_damage(hitbox.damage)
 
+	if hitbox.owner.has_method("destroy"):
+		hitbox.owner.destroy()
 
 func _on_body_entered(body) -> void:
 	if body.has_method("destroy"):

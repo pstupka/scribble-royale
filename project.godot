@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/hurtbox.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "ParticleCollider",
 "language": "GDScript",
-"path": "res://addons/SplatterEffect/ParticleCollider.gd"
+"path": "res://scenes/bullets/bullet-basic/bullet-basic.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",

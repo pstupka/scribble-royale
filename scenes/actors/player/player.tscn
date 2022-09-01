@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character/body-round/outline.png" type="Texture" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://assets/sprites/character/body-round/fill.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/character/body-round/mouth.png" type="Texture" id=10]
 [ext_resource path="res://scenes/props/player_eyes/eyes.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=12]
 [ext_resource path="res://utils/hurtbox.gd" type="Script" id=13]
 [ext_resource path="res://assets/sprites/ui/ui_healthbar_over.png" type="Texture" id=14]
 [ext_resource path="res://assets/shaders/wobble_shader.tres" type="Material" id=15]
@@ -256,7 +255,5 @@ position = Vector2( 0, 8 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 position = Vector2( 0, -22 )
-
-[node name="Bow" parent="WeaponPivot" instance=ExtResource( 12 )]
 
 [connection signal="transitioned" from="MotionStateMachine" to="." method="_on_State_transitioned"]

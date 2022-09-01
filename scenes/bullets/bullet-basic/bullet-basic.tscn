@@ -1,0 +1,44 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://addons/SplatterEffect/ParticleCollider.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/bullet/bullet_basic.png" type="Texture" id=2]
+[ext_resource path="res://scenes/effects/particle_effects/explosion_arrow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/misc/splat/splat02.png" type="Texture" id=4]
+[ext_resource path="res://utils/hitbox.gd" type="Script" id=5]
+[ext_resource path="res://assets/sprites/misc/splat/splat09.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/misc/splat/splat01.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/misc/splat/splat08.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/misc/splat/splat00.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/misc/splat/splat07.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/misc/splat/splat03.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/misc/splat/splat04.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/misc/splat/splat05.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/misc/splat/splat06.png" type="Texture" id=14]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="BulletBasic" type="Area2D" groups=["portable"]]
+collision_layer = 2
+collision_mask = 524289
+script = ExtResource( 1 )
+explosion_particles_scene = ExtResource( 3 )
+splat_textures = [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 6 ) ]
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -6,7 +6,9 @@ export(int) var player_id = 0
 var color setget set_player_color
 
 export(Color) var initial_color = Globals.COLORS.Purple
+export(PackedScene) var weapon_scene: PackedScene = preload("res://scenes/weapons/blaster/blaster.tscn")
 onready var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
+var weapon: Weapon
 
 export(float) var max_speed = 200.0
 export(float) var gravity = 1500.0
@@ -20,7 +22,6 @@ export(float) var rotation_speed = 10.0
 
 onready var body_pivot: = $BodyPivot
 onready var weapon_pivot: = $WeaponPivot
-onready var weapon: = $WeaponPivot/Bow
 onready var health_indicator: = $HealthIndicator
 
 var max_health: float = 100.0
@@ -39,11 +40,16 @@ var multi_jump_counter
 
 func _ready() -> void:
 	randomize()
-	set_player_color(initial_color)
+
 	multi_jump_counter = multi_jump
 	
 	health_indicator.max_value = max_health
 	health_indicator.value = health
+	
+	weapon = weapon_scene.instance()
+	weapon_pivot.add_child(weapon)
+	
+	set_player_color(initial_color)
 
 
 func _input(event: InputEvent) -> void:
@@ -58,6 +64,8 @@ func _process(delta: float) -> void:
 			body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
+
+			weapon.scale.y = sign(look_direction.x)
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
 
