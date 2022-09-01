@@ -2,6 +2,7 @@ class_name Weapon
 extends Node2D
 
 export(float) var cooldown := 0.1
+export(float) var spread_factor := 0.1
 var cooldown_timer: Timer = Timer.new()
 var can_attack: bool = true
 

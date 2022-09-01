@@ -3,6 +3,7 @@ extends PlayerState
 var coyote_timer: Timer = Timer.new()
 var coyote_jump = false
 
+
 func _ready() -> void:
 	add_child(coyote_timer)
 	coyote_timer.connect("timeout", self, "_on_coyote_timer_timeout")
@@ -23,6 +24,7 @@ func enter(msg := {}):
 func handle_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("jump_p%s" % player.player_id) and (coyote_jump or player.multi_jump_counter > 0)):
 		state_machine.transition_to("Jump")
+
 
 
 func physics_update(delta):

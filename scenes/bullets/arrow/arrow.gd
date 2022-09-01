@@ -36,7 +36,7 @@ func set_color(new_color: Color) -> void:
 	$Sprite.self_modulate = new_color
 	
 
-func _on_Arrow_body_entered(body: TileMap) -> void:
+func _on_Arrow_body_entered(_body: TileMap) -> void:
 	call_deferred("set_mode", RigidBody2D.MODE_STATIC)
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	$DestroyDelay.start()

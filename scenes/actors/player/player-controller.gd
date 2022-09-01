@@ -64,8 +64,7 @@ func _process(delta: float) -> void:
 			body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
-
-			weapon.scale.y = sign(look_direction.x)
+			weapon.scale.y = sign(sign(cos(weapon_pivot.rotation)))
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
 

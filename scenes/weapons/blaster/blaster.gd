@@ -21,7 +21,7 @@ func set_color(new_color: Color) -> void:
 
 func spawn_bullet() -> void:
 	var bullet_instance = bullet_scene.instance()
-	var shoot_direction = Vector2.RIGHT.rotated(global_rotation).normalized()
+	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 1) * spread_factor).normalized()
 	get_tree().current_scene.add_child(bullet_instance)
 	bullet_instance.global_transform = $SpawnPoint.global_transform
 	bullet_instance.color = color

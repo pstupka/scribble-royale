@@ -32,7 +32,6 @@ func _create_image(size: Vector2) -> Image:
 
 
 func _copy_tile_map_to_texture(tile_map: TileMap) -> ImageTexture:
-	
 	var cell_size := tile_map.get_cell_size()
 	var tile_set := tile_map.tile_set
 	var used_rect := tile_map.get_used_rect()

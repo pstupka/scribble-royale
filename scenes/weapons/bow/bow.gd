@@ -7,7 +7,6 @@ onready var can_shoot_raycast: RayCast2D = $RayCast2D
 export var shoot_strength = 3000
 
 
-
 func attack() -> void:
 	if ammo > 0 and not can_shoot_raycast.is_colliding() and can_attack:
 		spawn_arrow()
@@ -25,7 +24,7 @@ func set_color(new_color: Color) -> void:
 
 func spawn_arrow() -> void:
 	var arrow_instance = arrow_scene.instance()
-	var shoot_direction = Vector2.RIGHT.rotated(global_rotation).normalized()
+	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 1) * spread_factor).normalized()
 	get_tree().current_scene.add_child(arrow_instance)
 	arrow_instance.global_transform = $SpawnPoint.global_transform
 	arrow_instance.color = color
