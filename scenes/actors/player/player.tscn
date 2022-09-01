@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/actors/player/states/motion/move-state.gd" type="Script" id=5]
 [ext_resource path="res://scenes/actors/player/states/motion/jump-state.gd" type="Script" id=6]
 [ext_resource path="res://scenes/actors/player/states/motion/fall-state.gd" type="Script" id=7]
-[ext_resource path="res://assets/gfx/PNG/item_hat.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/items/item_hatTop.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/character/body-round/fill.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/character/body-round/mouth.png" type="Texture" id=10]
 [ext_resource path="res://scenes/props/player_eyes/eyes.tscn" type="PackedScene" id=11]
@@ -218,9 +218,9 @@ shape = SubResource( 7 )
 
 [node name="HealthIndicator" type="TextureProgress" parent="."]
 margin_left = -33.0
-margin_top = -76.0
+margin_top = -84.0
 margin_right = 33.0
-margin_bottom = 38.0
+margin_bottom = 30.0
 value = 100.0
 texture_under = ExtResource( 16 )
 texture_over = ExtResource( 14 )
@@ -239,7 +239,7 @@ texture = ExtResource( 9 )
 
 [node name="Hat" type="Sprite" parent="BodyPivot"]
 material = ExtResource( 15 )
-position = Vector2( 0, -46 )
+position = Vector2( 0, -57 )
 texture = ExtResource( 8 )
 
 [node name="Mouth" type="Sprite" parent="BodyPivot"]

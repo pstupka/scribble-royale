@@ -6,9 +6,9 @@ export var shoot_strength = 1500
 
 
 func attack() -> void:
-	if ammo > 0:
+	if ammo > 0 and can_attack:
 		spawn_bullet()
-
+		cooldown()
 
 func drop() -> void:
 	pass

@@ -1,13 +1,11 @@
 extends RigidBody2D
 
 
-var damage: float = 10
+var damage: float = 20
 var modifier: float = 1
 var color: Color setget set_color
 
 export var explosion_particles_scene: PackedScene
-
-export(Array, Texture) var splat_textures
 
 
 func _ready() -> void:

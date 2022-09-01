@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/actors/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/props/shooting_target/shooting_target.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
 [ext_resource path="res://addons/SplatterEffect/SplatLayer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -59,6 +60,7 @@ initial_color = Color( 0.988235, 0.360784, 0.396078, 1 )
 [node name="Player3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 893, 246 )
 initial_color = Color( 0.215686, 0.85098, 0.54902, 1 )
+weapon_scene = ExtResource( 7 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 

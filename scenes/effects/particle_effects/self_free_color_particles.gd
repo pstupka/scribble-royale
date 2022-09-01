@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func init(color: Color) -> void:
 	self_modulate = color
+	emitting = true
 
 
 func _on_destroy_timer_timeout() -> void:

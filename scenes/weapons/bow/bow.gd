@@ -7,9 +7,11 @@ onready var can_shoot_raycast: RayCast2D = $RayCast2D
 export var shoot_strength = 3000
 
 
+
 func attack() -> void:
-	if ammo > 0 and not can_shoot_raycast.is_colliding():
+	if ammo > 0 and not can_shoot_raycast.is_colliding() and can_attack:
 		spawn_arrow()
+		cooldown()
 
 
 func drop() -> void:

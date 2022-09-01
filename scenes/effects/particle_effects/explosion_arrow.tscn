@@ -19,8 +19,10 @@ scale_random = 0.37
 
 [node name="ExplosionArrow" type="Particles2D"]
 position = Vector2( 10, 0 )
-amount = 20
+emitting = false
+amount = 10
 lifetime = 0.4
+one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 2 )
 texture = ExtResource( 1 )
