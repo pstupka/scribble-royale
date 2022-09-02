@@ -1,6 +1,7 @@
 class_name Player
 extends KinematicBody2D
 
+const MAX_FALL_SPEED = 1000
 
 export(int) var player_id = 0
 var color setget set_player_color
@@ -53,7 +54,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack_p%s" % player_id):
+	if event.is_action_pressed("attack_p%s" % player_id) and weapon:
 		weapon.attack()
 
 
@@ -71,6 +72,7 @@ func _process(delta: float) -> void:
 
 func _apply_gravity(delta) -> void:
 	_velocity.y -= gravity * delta
+	_velocity.y = clamp(_velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
 
 
 func _apply_movement(_delta) -> void:

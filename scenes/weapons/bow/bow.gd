@@ -24,7 +24,7 @@ func set_color(new_color: Color) -> void:
 
 func spawn_arrow() -> void:
 	var arrow_instance = arrow_scene.instance()
-	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 1) * spread_factor).normalized()
+	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 0.5) * spread_factor).normalized()
 	get_tree().current_scene.add_child(arrow_instance)
 	arrow_instance.global_transform = $SpawnPoint.global_transform
 	arrow_instance.color = color

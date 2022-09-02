@@ -7,7 +7,7 @@
 [node name="Bow" type="Node2D"]
 script = ExtResource( 2 )
 cooldown = 0.5
-spread_factor = 0.0
+spread_factor = 0.02
 
 [node name="SpawnPoint" type="Position2D" parent="."]
 position = Vector2( 51, 0 )
