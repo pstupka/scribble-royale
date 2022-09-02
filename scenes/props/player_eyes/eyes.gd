@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-export(float) var blink_time := 6
+export(float) var blink_time := 6.0
 export(bool) var blink_enabled := true
 
 func _ready():
@@ -11,6 +11,6 @@ func _ready():
 
 
 func _on_BlinkTimer_timeout() -> void:
-	$BlinkTimer.wait_time = randi() % blink_time + 1
+	$BlinkTimer.wait_time = randf() * blink_time
 	frame = 0
 	play("blink")

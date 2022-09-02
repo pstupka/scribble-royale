@@ -5,10 +5,15 @@ onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-bas
 export var shoot_strength = 1500
 
 
+func _process(delta) -> void:
+	scale.y = sign(sign(cos(global_rotation)))
+
+
 func attack() -> void:
 	if ammo > 0 and can_attack:
 		spawn_bullet()
 		cooldown()
+
 
 func drop() -> void:
 	pass
@@ -21,7 +26,7 @@ func set_color(new_color: Color) -> void:
 
 func spawn_bullet() -> void:
 	var bullet_instance = bullet_scene.instance()
-	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 1) * spread_factor).normalized()
+	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 0.5) * spread_factor).normalized()
 	get_tree().current_scene.add_child(bullet_instance)
 	bullet_instance.global_transform = $SpawnPoint.global_transform
 	bullet_instance.color = color

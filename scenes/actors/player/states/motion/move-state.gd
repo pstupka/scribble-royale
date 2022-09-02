@@ -24,7 +24,7 @@ func handle_input(event):
 		player.spawn_footstep()
 
 
-func physics_update(delta):	
+func physics_update(delta):
 	var input_direction = player.get_input_direction()
 	player._input_direction = input_direction
 	player._apply_gravity(delta)

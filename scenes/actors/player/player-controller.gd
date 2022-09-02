@@ -8,7 +8,7 @@ var color setget set_player_color
 
 export(Color) var initial_color = Globals.COLORS.Purple
 export(PackedScene) var weapon_scene: PackedScene = preload("res://scenes/weapons/blaster/blaster.tscn")
-onready var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
+export var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 var weapon: Weapon
 
 export(float) var max_speed = 200.0
@@ -31,9 +31,11 @@ var health: float = 100.0
 enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
 var current_emotion: int = Emotion.HAPPY
 
+
 var _velocity := Vector2.ZERO
 var _speed := 0.0
 var _input_direction := Vector2.ZERO
+var move_threshold = 0.2
 
 export(int) var multi_jump := 2
 var multi_jump_counter
@@ -65,7 +67,6 @@ func _process(delta: float) -> void:
 			body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
 			body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
-			weapon.scale.y = sign(sign(cos(weapon_pivot.rotation)))
 		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
 
@@ -76,7 +77,7 @@ func _apply_gravity(delta) -> void:
 
 
 func _apply_movement(_delta) -> void:
-	_velocity.x = lerp(_velocity.x, max_speed * _input_direction.x, 0.5)
+	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), 0.5)
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 
 
