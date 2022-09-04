@@ -5,13 +5,14 @@ onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-bas
 export var shoot_strength = 1500
 
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	scale.y = sign(sign(cos(global_rotation)))
 
 
 func attack() -> void:
 	if ammo > 0 and can_attack:
 		spawn_bullet()
+		$AnimationPlayer.play("shoot")
 		cooldown()
 
 

@@ -7,7 +7,7 @@ onready var can_shoot_raycast: RayCast2D = $RayCast2D
 export var shoot_strength = 3000
 
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	scale.y = sign(sign(cos(global_rotation)))
 
 

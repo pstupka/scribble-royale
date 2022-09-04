@@ -1,7 +1,5 @@
 extends Area2D
 
-signal particle_collided
-
 var collided_canvas: Sprite
 var collided_layer: SplatLayer
 var global_collision_position: Vector2
@@ -16,7 +14,6 @@ var color: Color setget set_color\
 export var explosion_particles_scene: PackedScene
 
 export(Array, Texture) var splat_textures
-
 
 var direction = Vector2.ZERO
 export(float) var speed := 1000.0
@@ -36,7 +33,6 @@ func destroy() -> void:
 		get_tree().current_scene.add_child(explosion_instance)
 		explosion_instance.init(color)
 		explosion_instance.global_transform = global_transform
-
 	call_deferred("queue_free")
 
 
