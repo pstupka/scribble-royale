@@ -9,7 +9,7 @@ var has_collided := false
 
 var damage: float = 5
 var modifier: float = 1
-var color: Color setget set_color\
+var color: Color setget set_color
 
 export var explosion_particles_scene: PackedScene
 
@@ -50,12 +50,12 @@ func _on_body_entered(body: TileMap):
 	
 	draw_spot(collided_canvas.texture,
 		splat_textures[randi() % splat_textures.size()],
-		relative_collision_position,
-		color)
+		relative_collision_position
+		)
 	destroy()
 
 
-func draw_spot(target: Texture, spot: Texture, pos: Vector2, color: Color) -> void:
+func draw_spot(target: Texture, spot: Texture, pos: Vector2) -> void:
 	var size = spot.get_size()
 	var dst = pos - size/2
 	

@@ -2,7 +2,7 @@ extends PlayerState
 
 var coyote_timer: Timer = Timer.new()
 var coyote_jump = false
-
+export(float) var acceleration_weight: = 0.05
 
 func _ready() -> void:
 	add_child(coyote_timer)
@@ -34,10 +34,8 @@ func physics_update(delta):
 		else:
 			state_machine.transition_to("Move")
 	
-	var input_direction = player.get_input_direction()
-	player._input_direction = input_direction
 	player._apply_gravity(delta)
-	player._apply_movement(delta)
+	player._apply_movement(delta, acceleration_weight)
 
 
 func _on_coyote_timer_timeout() -> void:

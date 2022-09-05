@@ -1,8 +1,9 @@
 extends PlayerState
 
+export(float) var acceleration_weight: = 0.1
+
 func enter(_msg := {}):
 	player.get_node("AnimationPlayer").play("idle")
-	player._velocity = Vector2.ZERO
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
 	player.multi_jump_reset()
@@ -20,7 +21,9 @@ func update(_delta: float) -> void:
 
 
 # Corresponds to the `_physics_process()` callback.
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
+	player._apply_movement(delta, acceleration_weight)
+	
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 		return

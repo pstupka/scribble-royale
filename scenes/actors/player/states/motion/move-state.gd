@@ -1,7 +1,7 @@
 extends PlayerState
 
 var footstep_timer: Timer = Timer.new()
-
+export(float) var acceleration_weight: = 0.1
 
 func _ready() -> void:
 	add_child(footstep_timer)
@@ -25,12 +25,10 @@ func handle_input(event):
 
 
 func physics_update(delta):
-	var input_direction = player.get_input_direction()
-	player._input_direction = input_direction
 	player._apply_gravity(delta)
-	player._apply_movement(delta)
+	player._apply_movement(delta, acceleration_weight)
 
-	if is_equal_approx(input_direction.x, 0.0):
+	if is_equal_approx(player._input_direction.x, 0.0):
 		state_machine.transition_to("Idle")
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall", {"coyote_jump": true})

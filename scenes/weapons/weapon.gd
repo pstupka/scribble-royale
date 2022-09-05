@@ -11,6 +11,7 @@ var ammo: int = 1000
 
 var color: Color setget set_color
 
+var is_discoverable: bool = true
 
 func _ready() -> void:
 	add_child(cooldown_timer)
@@ -37,3 +38,11 @@ func set_color(new_color: Color) -> void:
 
 func _on_cooldown_timer_timeout() -> void:
 	can_attack = true
+
+
+func _on_attack_pressed() -> void:
+	pass
+
+
+func _on_attack_released() -> void:
+	pass

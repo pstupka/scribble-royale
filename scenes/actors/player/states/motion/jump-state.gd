@@ -1,5 +1,7 @@
 extends PlayerState
 
+export(float) var acceleration_weight: = 0.05
+
 func enter(_msg := {}):
 	player.get_node("AnimationPlayer").play("jump")
 	player._velocity.y = -player.max_jump_velocity
@@ -21,9 +23,7 @@ func physics_update(delta):
 	if (player._velocity.y >= 0):
 		state_machine.transition_to("Fall", { "double_jump": true })
 	
-	var input_direction = player.get_input_direction()
-	player._input_direction = input_direction
 	player._apply_gravity(delta)
-	player._apply_movement(delta)
+	player._apply_movement(delta, acceleration_weight)
 
 

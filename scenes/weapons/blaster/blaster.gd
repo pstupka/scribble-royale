@@ -6,7 +6,7 @@ export var shoot_strength = 1500
 
 
 func _process(_delta) -> void:
-	scale.y = sign(sign(cos(global_rotation)))
+	$Sprite.scale.y = sign(sign(cos(global_rotation)))
 
 
 func attack() -> void:
@@ -33,3 +33,10 @@ func spawn_bullet() -> void:
 	bullet_instance.color = color
 	bullet_instance.direction = shoot_direction
 
+
+func _on_attack_pressed() -> void:
+	attack()
+
+
+func _on_attack_released() -> void:
+	pass

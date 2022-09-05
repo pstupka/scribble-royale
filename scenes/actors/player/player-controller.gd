@@ -1,6 +1,9 @@
 class_name Player
 extends KinematicBody2D
 
+signal attack_action_pressed
+signal attack_action_released
+
 const MAX_FALL_SPEED = 1000
 
 export(int) var player_id = 0
@@ -15,9 +18,6 @@ export(float) var max_speed = 200.0
 export(float) var gravity = 1500.0
 export(float) var max_jump_velocity = 1000.0
 export(float) var min_jump_velocity = 600.0
-export(float) var air_acceleration = 1000.0
-export(float) var air_deceleration = 2000.0
-export(float) var air_steering_power = 50.0
 
 export(float) var rotation_speed = 10.0
 
@@ -49,26 +49,28 @@ func _ready() -> void:
 	health_indicator.max_value = max_health
 	health_indicator.value = health
 	
-	weapon = weapon_scene.instance()
-	weapon_pivot.add_child(weapon)
-	
 	set_player_color(initial_color)
+	set_player_color(initial_color)
+	
+	equip_weapon(weapon_scene.instance())
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack_p%s" % player_id) and weapon:
-		weapon.attack()
+		emit_signal("attack_action_pressed")
+	if event.is_action_released("attack_p%s" % player_id) and weapon:
+		emit_signal("attack_action_released")
 
 
 func _process(delta: float) -> void:
-	var look_direction = get_input_direction()
-	if look_direction:
-		if look_direction.x:
-			body_pivot.get_node("Hat").scale.x = sign(look_direction.x)
-			body_pivot.get_node("Mouth").scale.x = sign(look_direction.x)
-			body_pivot.get_node("Eyes").scale.x = sign(look_direction.x)
-		var angle_to = weapon_pivot.transform.x.angle_to(look_direction)
+	_input_direction = get_input_direction()
+	if _input_direction:
+		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
+		var look_direction = sign(sign(cos(weapon_pivot.rotation)))
+		body_pivot.get_node("Hat").scale.x = look_direction
+		body_pivot.get_node("Mouth").scale.x = look_direction
+		body_pivot.get_node("Eyes").scale.x = look_direction
 
 
 func _apply_gravity(delta) -> void:
@@ -76,8 +78,8 @@ func _apply_gravity(delta) -> void:
 	_velocity.y = clamp(_velocity.y, -MAX_FALL_SPEED, MAX_FALL_SPEED)
 
 
-func _apply_movement(_delta) -> void:
-	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), 0.5)
+func _apply_movement(_delta, weight: float = 0.5) -> void:
+	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), weight)
 	_velocity = move_and_slide(_velocity, Vector2.UP)
 
 
@@ -105,21 +107,6 @@ func get_input_direction() -> Vector2:
 		"move_down_p%s" % player_id)
 
 
-func set_emotion() -> void:
-	if health < 0.7 * max_health:
-		current_emotion = Emotion.NEUTRAL
-	if health < 0.3 * max_health:
-		current_emotion = Emotion.SAD
-	$BodyPivot/Mouth.region_rect = Rect2(48 * current_emotion , 0, 48, 64)
-
-
-func set_player_color(new_color: Color) -> void:
-	color = new_color
-	$BodyPivot/Fill.self_modulate = new_color
-	health_indicator.tint_progress = new_color
-	weapon.color = new_color
-
-
 func spawn_footstep() -> void:
 	var footstep_instance = footstep_scene.instance()
 	add_child(footstep_instance)
@@ -133,5 +120,25 @@ func multi_jump_reset() -> void:
 	multi_jump_counter = multi_jump
 
 
-func _on_State_transitioned(state_name) -> void:
-	$Label.text = state_name
+func equip_weapon(new_weapon: Weapon) -> void:
+	if weapon:
+		weapon.call_deferred("queue_free")
+	weapon = new_weapon
+	weapon_pivot.add_child(weapon)
+	weapon.color = color
+	connect("attack_action_pressed", weapon, "_on_attack_pressed")
+	connect("attack_action_released", weapon, "_on_attack_released")
+
+
+func set_emotion() -> void:
+	if health < 0.7 * max_health:
+		current_emotion = Emotion.NEUTRAL
+	if health < 0.3 * max_health:
+		current_emotion = Emotion.SAD
+	$BodyPivot/Mouth.region_rect = Rect2(48 * current_emotion , 0, 48, 64)
+
+
+func set_player_color(new_color: Color) -> void:
+	color = new_color
+	$BodyPivot/Fill.self_modulate = new_color
+	health_indicator.tint_progress = new_color

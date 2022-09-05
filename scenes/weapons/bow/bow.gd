@@ -33,3 +33,12 @@ func spawn_arrow() -> void:
 	arrow_instance.global_transform = $SpawnPoint.global_transform
 	arrow_instance.color = color
 	arrow_instance.apply_impulse(Vector2.ZERO, shoot_direction * shoot_strength)
+
+
+func _on_attack_pressed() -> void:
+	pass
+
+
+func _on_attack_released() -> void:
+	print("attack released")
+	attack()

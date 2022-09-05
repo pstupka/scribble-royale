@@ -187,12 +187,6 @@ anims/idle = SubResource( 2 )
 anims/jump = SubResource( 6 )
 anims/move = SubResource( 3 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = -26.0
-margin_top = -90.0
-margin_right = 14.0
-margin_bottom = -76.0
-
 [node name="MotionStateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
 initial_state = NodePath("Idle")
@@ -255,5 +249,3 @@ position = Vector2( 0, 8 )
 
 [node name="WeaponPivot" type="Position2D" parent="."]
 position = Vector2( 0, -22 )
-
-[connection signal="transitioned" from="MotionStateMachine" to="." method="_on_State_transitioned"]
