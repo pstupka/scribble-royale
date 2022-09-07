@@ -1700,7 +1700,7 @@ initial_color = Color( 1, 0.713726, 0, 1 )
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1433, 399 )
-player_id = 1
+player_id = 0
 initial_color = Color( 0.568627, 0.47451, 1, 1 )
 weapon_scene = ExtResource( 56 )
 
