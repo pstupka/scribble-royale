@@ -7,7 +7,7 @@ on:
 env:
   GODOT_VERSION: 3.5
   EXPORT_NAME: scribble-royale
-  ITCH_IO: ${{ false }} #set to true if you want to enable automatic itch.io deploy
+  ITCH_IO: ${{ true }} #set to true if you want to enable automatic itch.io deploy
 
 jobs:
   export-windows:
@@ -102,7 +102,7 @@ jobs:
         run: |
           apt-get update && apt-get install -y rsync
       - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
