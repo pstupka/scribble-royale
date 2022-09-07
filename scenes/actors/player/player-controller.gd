@@ -62,7 +62,7 @@ func _input(event: InputEvent) -> void:
 		emit_signal("attack_action_released")
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	_input_direction = get_input_direction()
 	if _input_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
@@ -80,7 +80,7 @@ func _apply_gravity(delta) -> void:
 
 func _apply_movement(_delta, weight: float = 0.5) -> void:
 	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), weight)
-	_velocity = move_and_slide(_velocity, Vector2.UP)
+	_velocity = move_and_slide(_velocity, Vector2.UP, true)
 
 
 func take_damage(damage: float) -> void:

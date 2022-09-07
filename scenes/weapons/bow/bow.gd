@@ -40,5 +40,4 @@ func _on_attack_pressed() -> void:
 
 
 func _on_attack_released() -> void:
-	print("attack released")
 	attack()

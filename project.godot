@@ -288,7 +288,6 @@ attack_p666={
 [physics]
 
 common/physics_fps=120
-2d/physics_engine="GodotPhysics"
 
 [rendering]
 
