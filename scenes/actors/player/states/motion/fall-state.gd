@@ -22,7 +22,7 @@ func enter(msg := {}):
 
 
 func handle_input(event: InputEvent) -> void:
-	if (event.is_action_pressed("jump_p%s" % player.player_id) and (coyote_jump or player.multi_jump_counter > 0)):
+	if (event.is_action_pressed(player.input_map.jump) and (coyote_jump or player.multi_jump_counter > 0)):
 		state_machine.transition_to("Jump")
 
 

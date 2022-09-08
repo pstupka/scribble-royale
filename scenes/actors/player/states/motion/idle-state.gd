@@ -12,7 +12,7 @@ func enter(_msg := {}):
 
 
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump_p%s" % player.player_id) and player.is_on_floor():
+	if event.is_action_pressed(player.input_map.jump) and player.is_on_floor():
 		state_machine.transition_to("Jump")
 		player.spawn_footstep()
 

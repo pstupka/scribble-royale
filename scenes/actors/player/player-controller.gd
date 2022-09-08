@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 signal attack_action_pressed
 signal attack_action_released
+signal player_died(id)
 
 const MAX_FALL_SPEED = 1000
 
@@ -28,9 +29,16 @@ onready var health_indicator: = $HealthIndicator
 var max_health: float = 100.0
 var health: float = 100.0
 
-enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
-var current_emotion: int = Emotion.HAPPY
-
+onready var input_map : Dictionary = {
+	"move_left": "move_left_p%s" % player_id,
+	"move_right": "move_right_p%s" % player_id,
+	"move_up": "move_up_p%s" % player_id,
+	"move_down": "move_down_p%s" % player_id,
+	"jump": "jump_p%s" % player_id,
+	"attack": "attack_p%s" % player_id,
+	"secondary_attack": "secondary_attack",
+	"lock_move": "lock_move",
+}
 
 var _velocity := Vector2.ZERO
 var _speed := 0.0
@@ -43,7 +51,7 @@ var multi_jump_counter
 
 func _ready() -> void:
 	randomize()
-
+	print(input_map.move_left)
 	multi_jump_counter = multi_jump
 	
 	health_indicator.max_value = max_health
@@ -56,9 +64,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack_p%s" % player_id) and weapon:
+	if event.is_action_pressed(input_map.attack) and weapon:
 		emit_signal("attack_action_pressed")
-	if event.is_action_released("attack_p%s" % player_id) and weapon:
+	if event.is_action_released(input_map.attack) and weapon:
 		emit_signal("attack_action_released")
 
 
@@ -90,21 +98,22 @@ func take_damage(damage: float) -> void:
 	health -= damage
 	health = clamp(health, 0, max_health)
 	tween.tween_property(health_indicator, "value", health, 0.2)
-	set_emotion()
+	$BodyPivot/Mouth.set_emotion(health/max_health)
 	if health <= 0:
 		die()
 
 
 func die() -> void:
+	emit_signal("player_died", player_id)
 	call_deferred("queue_free")
 
 
 func get_input_direction() -> Vector2:
 	return Input.get_vector(
-		"move_left_p%s" % player_id,
-		"move_right_p%s" % player_id,
-		"move_up_p%s" % player_id,
-		"move_down_p%s" % player_id)
+		input_map.move_left,
+		input_map.move_right,
+		input_map.move_up,
+		input_map.move_down)
 
 
 func spawn_footstep() -> void:
@@ -130,12 +139,7 @@ func equip_weapon(new_weapon: Weapon) -> void:
 	connect("attack_action_released", weapon, "_on_attack_released")
 
 
-func set_emotion() -> void:
-	if health < 0.7 * max_health:
-		current_emotion = Emotion.NEUTRAL
-	if health < 0.3 * max_health:
-		current_emotion = Emotion.SAD
-	$BodyPivot/Mouth.region_rect = Rect2(48 * current_emotion , 0, 48, 64)
+
 
 
 func set_player_color(new_color: Color) -> void:
