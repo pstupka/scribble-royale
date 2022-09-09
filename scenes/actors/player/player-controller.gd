@@ -7,6 +7,8 @@ signal player_died(id)
 
 const MAX_FALL_SPEED = 1000
 
+onready var _rigid: = preload("res://scenes/props/rigid_item/RigidItem.tscn")
+
 export(int) var player_id = 0
 var color setget set_player_color
 
@@ -104,6 +106,12 @@ func take_damage(damage: float) -> void:
 
 
 func die() -> void:
+	var rigid: RigidBody2D = _rigid.instance()
+	rigid.get_node("Sprite").texture = $BodyPivot/Hat.texture
+	get_tree().current_scene.call_deferred("add_child", rigid)
+	rigid.global_transform = $BodyPivot/Hat.global_transform
+
+	
 	emit_signal("player_died", player_id)
 	call_deferred("queue_free")
 

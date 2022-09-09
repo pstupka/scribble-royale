@@ -169,6 +169,7 @@ height = 16.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
+collision_mask = 5
 script = ExtResource( 1 )
 player_id = 666
 max_speed = 400.0
