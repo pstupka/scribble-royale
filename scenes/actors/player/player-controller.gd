@@ -7,7 +7,7 @@ signal player_died(id)
 
 const MAX_FALL_SPEED = 1000
 
-onready var _rigid: = preload("res://scenes/props/rigid_item/RigidItem.tscn")
+onready var _rigid_item_scene: = preload("res://scenes/props/rigid-item/rigid-item.tscn")
 
 export(int) var player_id = 0
 var color setget set_player_color
@@ -31,6 +31,8 @@ onready var health_indicator: = $HealthIndicator
 var max_health: float = 100.0
 var health: float = 100.0
 
+onready var hat: = $BodyPivot/Hat
+
 onready var input_map : Dictionary = {
 	"move_left": "move_left_p%s" % player_id,
 	"move_right": "move_right_p%s" % player_id,
@@ -49,6 +51,8 @@ var move_threshold = 0.2
 
 export(int) var multi_jump := 2
 var multi_jump_counter
+
+export (int) var inertia = 1000
 
 
 func _ready() -> void:
@@ -90,7 +94,13 @@ func _apply_gravity(delta) -> void:
 
 func _apply_movement(_delta, weight: float = 0.5) -> void:
 	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), weight)
-	_velocity = move_and_slide(_velocity, Vector2.UP, true)
+	_velocity = move_and_slide(_velocity, Vector2.UP, true, 4, PI/4, false)
+	
+	# after calling move_and_slide()
+	for index in get_slide_count():
+		var collision = get_slide_collision(index)
+		if collision.collider.is_in_group("bodies"):
+			collision.collider.apply_central_impulse(-collision.normal * inertia)
 
 
 func take_damage(damage: float) -> void:
@@ -106,12 +116,12 @@ func take_damage(damage: float) -> void:
 
 
 func die() -> void:
-	var rigid: RigidBody2D = _rigid.instance()
-	rigid.get_node("Sprite").texture = $BodyPivot/Hat.texture
-	get_tree().current_scene.call_deferred("add_child", rigid)
-	rigid.global_transform = $BodyPivot/Hat.global_transform
+	if hat:
+		var rigid_drop: RigidBody2D = _rigid_item_scene.instance()
+		rigid_drop.get_node("Sprite").texture = $BodyPivot/Hat.texture
+		get_tree().current_scene.call_deferred("add_child", rigid_drop)
+		rigid_drop.global_transform = $BodyPivot/Hat.global_transform
 
-	
 	emit_signal("player_died", player_id)
 	call_deferred("queue_free")
 
