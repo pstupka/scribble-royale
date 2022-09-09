@@ -3,10 +3,12 @@ extends Weapon
 
 onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-basic/bullet-basic.tscn")
 export var shoot_strength = 1500
+onready var sprite: Sprite = get_node("%Sprite")
+onready var pivot: = $Pivot
 
 
 func _process(_delta) -> void:
-	$Sprite.scale.y = sign(sign(cos(global_rotation)))
+	pivot.scale.y = sign(sign(cos(global_rotation)))
 
 
 func attack() -> void:
@@ -21,7 +23,7 @@ func drop() -> void:
 
 
 func set_color(new_color: Color) -> void:
-	$Sprite.self_modulate = new_color
+	sprite.self_modulate = new_color
 	.set_color(new_color)
 
 
