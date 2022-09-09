@@ -36,8 +36,8 @@ onready var input_map : Dictionary = {
 	"move_down": "move_down_p%s" % player_id,
 	"jump": "jump_p%s" % player_id,
 	"attack": "attack_p%s" % player_id,
-	"secondary_attack": "secondary_attack",
-	"lock_move": "lock_move",
+	"secondary_attack": "secondary_attack_p%s" % player_id,
+	"lock_move": "lock_move_p%s" % player_id,
 }
 
 var _velocity := Vector2.ZERO

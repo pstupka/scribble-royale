@@ -28,7 +28,7 @@ func physics_update(delta):
 	player._apply_gravity(delta)
 	player._apply_movement(delta, acceleration_weight)
 
-	if is_equal_approx(player._input_direction.x, 0.0):
+	if is_equal_approx(player._velocity.x, 0.0) or Input.is_action_pressed(player.input_map.lock_move):
 		state_machine.transition_to("Idle")
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall", {"coyote_jump": true})

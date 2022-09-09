@@ -31,7 +31,10 @@ func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 		return
-
+	
+	if Input.is_action_pressed(player.input_map.lock_move):
+		return
+	
 	if player.get_input_direction().x:
 		state_machine.transition_to("Move")
 
