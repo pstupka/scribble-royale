@@ -160,12 +160,12 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CapsuleShape2D" id=7]
-radius = 24.0
-height = 24.0
+radius = 25.0
+height = 28.0
 
 [sub_resource type="CapsuleShape2D" id=8]
 radius = 19.0
-height = 16.0
+height = 14.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
@@ -206,7 +206,7 @@ script = ExtResource( 7 )
 script = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -25 )
 shape = SubResource( 7 )
 
 [node name="HealthIndicator" type="TextureProgress" parent="."]

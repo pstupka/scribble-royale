@@ -1,7 +1,7 @@
 class_name Weapon
 extends Node2D
 
-export(float) var cooldown := 0.1
+export(float) var cooldown_time := 0.1
 export(float) var spread_factor := 0.1
 var cooldown_timer: Timer = Timer.new()
 var can_attack: bool = true
@@ -13,9 +13,10 @@ var color: Color setget set_color
 
 var is_discoverable: bool = true
 
+
 func _ready() -> void:
 	add_child(cooldown_timer)
-	cooldown_timer.wait_time = cooldown
+	cooldown_timer.wait_time = cooldown_time
 	cooldown_timer.connect("timeout", self, "_on_cooldown_timer_timeout")
 
 

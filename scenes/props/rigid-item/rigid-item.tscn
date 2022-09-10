@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://utils/hurtbox.gd" type="Script" id=1]
 [ext_resource path="res://scenes/props/rigid-item/rigid-item.gd" type="Script" id=2]
@@ -6,9 +6,6 @@
 
 [sub_resource type="PhysicsMaterial" id=2]
 rough = true
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 12 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 22, 16 )
@@ -25,8 +22,8 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -14, -11, 14, -11, 16, -9, 16, 10, 14, 12, -14, 12, -16, 10, -16, -9 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 32
@@ -34,5 +31,4 @@ collision_mask = 16
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 1, 0 )
 shape = SubResource( 3 )
