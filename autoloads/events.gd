@@ -1,3 +1,3 @@
 extends Node
 
-signal took_damage(player_id)
+signal player_hurt(player_id, damage_percent)

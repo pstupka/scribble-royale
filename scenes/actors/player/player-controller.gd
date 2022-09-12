@@ -54,6 +54,8 @@ var multi_jump_counter
 
 export (int) var inertia = 1000
 
+export var immune: bool = false
+
 
 func _ready() -> void:
 	randomize()
@@ -62,7 +64,8 @@ func _ready() -> void:
 	health_indicator.max_value = max_health
 	health_indicator.value = health
 	
-	set_player_color(initial_color)
+	immune = false
+	
 	set_player_color(initial_color)
 	
 	equip_weapon(weapon_scene.instance())
@@ -92,7 +95,6 @@ func _apply_gravity(delta) -> void:
 
 
 func _apply_movement(_delta, weight: float = 0.5) -> void:
-	var vel = _velocity
 	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), weight)
 	_velocity = move_and_slide(_velocity, Vector2.UP, true, 4, PI/4, false)
 	
@@ -104,15 +106,18 @@ func _apply_movement(_delta, weight: float = 0.5) -> void:
 
 
 func take_damage(damage: float) -> void:
-#	var tween: = get_tree().create_tween()\
-#		.set_trans(Tween.TRANS_QUART)\
-#		.set_ease(Tween.EASE_OUT)
-#	health -= damage
-#	health = clamp(health, 0, max_health)
-#	tween.tween_property(health_indicator, "value", health, 0.2)
-#	$BodyPivot/Mouth.set_emotion(health/max_health)
-	
-	Events.emit_signal("took_damage", player_id)
+	if not immune:
+		var tween: = get_tree().create_tween()\
+			.set_trans(Tween.TRANS_QUART)\
+			.set_ease(Tween.EASE_OUT)
+		health -= damage
+		health = clamp(health, 0, max_health)
+		tween.tween_property(health_indicator, "value", health, 0.2)
+		
+		$BodyPivot/Mouth.set_emotion(health/max_health)
+		$CombatAnimationPlayer.play("hurt")
+		
+		Events.emit_signal("player_hurt", player_id, 0.7)
 	
 	if health <= 0:
 		die()

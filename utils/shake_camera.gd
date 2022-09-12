@@ -16,8 +16,8 @@ func _ready():
 	randomize()
 	noise.seed = randi()
 	noise.period = 4
-	noise.octaves = 2
-	Events.connect("took_damage", self, "_on_player_took_damage")
+	noise.octaves = 3
+	Events.connect("player_hurt", self, "_on_player_hurt")
 
 
 func _process(delta):
@@ -40,5 +40,5 @@ func add_trauma(amount):
 	trauma = min(trauma + amount, 1.0)
 
 
-func _on_player_took_damage(player_id) -> void:
-	add_trauma(1)
+func _on_player_hurt(_player_id, damage_percent) -> void:
+	add_trauma(damage_percent)
