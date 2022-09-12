@@ -22,7 +22,7 @@ export(float) var gravity = 1500.0
 export(float) var max_jump_velocity = 1000.0
 export(float) var min_jump_velocity = 600.0
 
-export(float) var rotation_speed = 10.0
+export(float) var rotation_speed = 40.0
 
 onready var body_pivot: = $BodyPivot
 onready var weapon_pivot: = $WeaponPivot
@@ -57,7 +57,6 @@ export (int) var inertia = 1000
 
 func _ready() -> void:
 	randomize()
-	print(input_map.move_left)
 	multi_jump_counter = multi_jump
 	
 	health_indicator.max_value = max_health
@@ -93,6 +92,7 @@ func _apply_gravity(delta) -> void:
 
 
 func _apply_movement(_delta, weight: float = 0.5) -> void:
+	var vel = _velocity
 	_velocity.x = lerp(_velocity.x, sign(_input_direction.x) * max_speed * pow(_input_direction.x, 2), weight)
 	_velocity = move_and_slide(_velocity, Vector2.UP, true, 4, PI/4, false)
 	
@@ -104,13 +104,16 @@ func _apply_movement(_delta, weight: float = 0.5) -> void:
 
 
 func take_damage(damage: float) -> void:
-	var tween: = get_tree().create_tween()\
-		.set_trans(Tween.TRANS_QUART)\
-		.set_ease(Tween.EASE_OUT)
-	health -= damage
-	health = clamp(health, 0, max_health)
-	tween.tween_property(health_indicator, "value", health, 0.2)
-	$BodyPivot/Mouth.set_emotion(health/max_health)
+#	var tween: = get_tree().create_tween()\
+#		.set_trans(Tween.TRANS_QUART)\
+#		.set_ease(Tween.EASE_OUT)
+#	health -= damage
+#	health = clamp(health, 0, max_health)
+#	tween.tween_property(health_indicator, "value", health, 0.2)
+#	$BodyPivot/Mouth.set_emotion(health/max_health)
+	
+	Events.emit_signal("took_damage", player_id)
+	
 	if health <= 0:
 		die()
 
@@ -155,9 +158,6 @@ func equip_weapon(new_weapon: Weapon) -> void:
 	weapon.color = color
 	connect("attack_action_pressed", weapon, "_on_attack_pressed")
 	connect("attack_action_released", weapon, "_on_attack_released")
-
-
-
 
 
 func set_player_color(new_color: Color) -> void:

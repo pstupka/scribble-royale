@@ -15,6 +15,7 @@ func pre_start(params):
 			printt("", key, val)
 
 	print("Processing...")
+	print("Processing...")
 	yield(get_tree().create_timer(2), "timeout")
 	print("Done")
 
