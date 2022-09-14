@@ -2,8 +2,10 @@ extends PlayerState
 
 export(float) var acceleration_weight: = 0.1
 
+
 func _ready() -> void:
 	pass
+
 
 func enter(_msg := {}):
 	player.get_node("AnimationPlayer").play("move")

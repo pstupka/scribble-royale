@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://scenes/actors/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
@@ -55,6 +55,7 @@
 [ext_resource path="res://assets/sprites/background/background_cloudA.png" type="Texture" id=53]
 [ext_resource path="res://assets/sprites/background/background_cloudB.png" type="Texture" id=54]
 [ext_resource path="res://assets/sprites/tiles/tile_arch_v2.png" type="Texture" id=55]
+[ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=56]
 [ext_resource path="res://scenes/weapons/machine_gun/machine_gun.tscn" type="PackedScene" id=57]
 [ext_resource path="res://utils/shake_camera.gd" type="Script" id=58]
 
@@ -1708,21 +1709,21 @@ position = Vector2( 644, 481 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 464, 836 )
 initial_color = Color( 1, 0.713726, 0, 1 )
-weapon_scene = ExtResource( 57 )
+weapon_scene = ExtResource( 56 )
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1433, 399 )
-player_id = 1
-weapon_scene = ExtResource( 57 )
+player_id = 0
+weapon_scene = ExtResource( 56 )
 
 [node name="Player3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 839, 828 )
+player_id = 1
 initial_color = Color( 0.988235, 0.360784, 0.396078, 1 )
 weapon_scene = ExtResource( 57 )
 
 [node name="Player4" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1276, 822 )
 initial_color = Color( 0.215686, 0.85098, 0.54902, 1 )
-weapon_scene = ExtResource( 57 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]

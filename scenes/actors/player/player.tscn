@@ -132,7 +132,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "move"
-length = 0.4
+length = 0.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BodyPivot:rotation_degrees")
@@ -144,7 +144,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 7.0, 0.0 ]
+"values": [ 0.0, 5.0, 0.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("BodyPivot:scale")
@@ -165,7 +165,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -214,28 +214,28 @@ resource_name = "hurt"
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("BodyPivot:modulate")
+tracks/0/path = NodePath(".:immune")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:immune")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -265,6 +265,7 @@ script = ExtResource( 4 )
 
 [node name="Move" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 5 )
+acceleration_weight = 0.3
 
 [node name="Jump" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 6 )

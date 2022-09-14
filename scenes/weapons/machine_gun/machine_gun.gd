@@ -2,8 +2,8 @@ extends Weapon
 
 
 onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-basic/bullet-basic.tscn")
-onready var sprite: Sprite = get_node("%Sprite")
 onready var pivot: = $Pivot
+onready var spawn_point: = $SpawnPoint
 
 
 func _ready() -> void:
@@ -11,7 +11,8 @@ func _ready() -> void:
 
 
 func _process(_delta) -> void:
-	sprite.scale.y = sign(cos(global_rotation))
+	pivot.scale.y = sign(cos(global_rotation))
+	spawn_point.position.y = sign(cos(global_rotation)) * abs(spawn_point.position.y)
 
 
 func attack() -> void:
@@ -25,7 +26,7 @@ func drop() -> void:
 
 
 func set_color(new_color: Color) -> void:
-	sprite.self_modulate = new_color
+	pivot.modulate = new_color
 	.set_color(new_color)
 
 
@@ -41,6 +42,7 @@ func spawn_bullet() -> void:
 
 func _on_cooldown_timer_timeout() -> void:
 	attack()
+	._on_cooldown_timer_timeout()
 
 
 func _on_attack_pressed() -> void:
