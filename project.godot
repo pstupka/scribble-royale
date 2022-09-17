@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/SplatterEffect/ParticleCollider.gd"
 }, {
+"base": "Area2D",
+"class": "PickableItem",
+"language": "GDScript",
+"path": "res://scenes/props/pickable_item/pickable_item.gd"
+}, {
+"base": "Resource",
+"class": "PickableItemResource",
+"language": "GDScript",
+"path": "res://utils/item_resource.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -73,6 +83,8 @@ _global_script_class_icons={
 "Hitbox": "",
 "Hurtbox": "",
 "ParticleCollider": "",
+"PickableItem": "",
+"PickableItemResource": "",
 "Player": "",
 "PlayerState": "",
 "SceneData": "",

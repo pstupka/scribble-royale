@@ -117,6 +117,8 @@ func take_damage(damage: float) -> void:
 		$BodyPivot/Mouth.set_emotion(health/max_health)
 		$CombatAnimationPlayer.play("hurt")
 		
+		_velocity = Vector2.ZERO
+		
 		Events.emit_signal("player_hurt", player_id, 0.7)
 	
 	if health <= 0:
@@ -164,6 +166,10 @@ func equip_weapon(new_weapon: Weapon) -> void:
 	connect("attack_action_pressed", weapon, "_on_attack_pressed")
 	connect("attack_action_released", weapon, "_on_attack_released")
 
+
+func pickup(resource: Resource) -> void:
+	if resource.type == "Weapon":
+		equip_weapon(resource.item_scene.instance())
 
 func set_player_color(new_color: Color) -> void:
 	color = new_color
