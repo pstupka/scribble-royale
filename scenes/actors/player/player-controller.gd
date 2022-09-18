@@ -148,7 +148,11 @@ func spawn_footstep() -> void:
 	var footstep_instance = footstep_scene.instance()
 	add_child(footstep_instance)
 	footstep_instance.init(color)
-	footstep_instance.process_material.direction.x = -sign(_input_direction.x)
+	footstep_instance.process_material.direction = Vector3(
+		-sign(_velocity.x),
+		-sign(_velocity.y),
+		0)
+	footstep_instance.process_material.initial_velocity = min(_velocity.length(), 40)
 	footstep_instance.set_as_toplevel(true)
 	footstep_instance.global_position = $BodyPivot/FootstepSpawn.global_position
 
