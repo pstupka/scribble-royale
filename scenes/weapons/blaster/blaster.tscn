@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/shaders/wobble_shader.tres" type="Material" id=3]
 [ext_resource path="res://assets/sprites/character/hand/hand.png" type="Texture" id=4]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=17]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Pivot/Sprite:rotation_degrees")
@@ -44,7 +44,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=18]
 resource_name = "shoot"
 length = 0.1
 step = 0.01
@@ -105,5 +105,5 @@ position = Vector2( 22, 14 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 2 )
-anims/shoot = SubResource( 1 )
+anims/RESET = SubResource( 17 )
+anims/shoot = SubResource( 18 )

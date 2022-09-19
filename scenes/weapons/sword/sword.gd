@@ -9,8 +9,8 @@ func _process(_delta) -> void:
 	pivot.scale.y = sign(cos(global_rotation))
 
 
-func equip(_owner) -> void:
-	hitbox.attacker = _owner
+func equip(new_owner) -> void:
+	hitbox.attacker = new_owner
 
 
 func attack() -> void:

@@ -1716,9 +1716,8 @@ position = Vector2( 644, 481 )
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Player" parent="Players" instance=ExtResource( 1 )]
-position = Vector2( 464, 836 )
+position = Vector2( 392, 492 )
 player_id = 0
-initial_color = Color( 1, 0.713726, 0, 1 )
 weapon_scene = ExtResource( 62 )
 
 [node name="Player2" parent="Players" instance=ExtResource( 1 )]
