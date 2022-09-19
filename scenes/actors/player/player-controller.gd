@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	if _input_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
-		var look_direction = sign(sign(cos(weapon_pivot.rotation)))
+		var look_direction = sign(cos(weapon_pivot.rotation))
 		body_pivot.get_node("Hat").scale.x = look_direction
 		body_pivot.get_node("Mouth").scale.x = look_direction
 		body_pivot.get_node("Eyes").scale.x = look_direction
@@ -167,13 +167,15 @@ func equip_weapon(new_weapon: Weapon) -> void:
 	weapon = new_weapon
 	weapon_pivot.add_child(weapon)
 	weapon.color = color
+	weapon.equip(self)
 	connect("attack_action_pressed", weapon, "_on_attack_pressed")
 	connect("attack_action_released", weapon, "_on_attack_released")
 
 
 func pickup(resource: Resource) -> void:
 	if resource.type == "Weapon":
-		equip_weapon(resource.item_scene.instance())
+		call_deferred("equip_weapon", resource.item_scene.instance())
+
 
 func set_player_color(new_color: Color) -> void:
 	color = new_color

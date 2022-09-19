@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scenes/actors/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
@@ -61,6 +61,8 @@
 [ext_resource path="res://scenes/props/pickable_item/pickable_item.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/props/pickable_item/pickable_resource_machine_gun.tres" type="Resource" id=60]
 [ext_resource path="res://scenes/props/pickable_item/pickable_resource_blaster.tres" type="Resource" id=61]
+[ext_resource path="res://scenes/weapons/sword/sword.tscn" type="PackedScene" id=62]
+[ext_resource path="res://scenes/props/pickable_item/pickable_resource_machine_sword.tres" type="Resource" id=63]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
@@ -1717,11 +1719,12 @@ position = Vector2( 644, 481 )
 position = Vector2( 464, 836 )
 player_id = 0
 initial_color = Color( 1, 0.713726, 0, 1 )
-weapon_scene = ExtResource( 56 )
+weapon_scene = ExtResource( 62 )
 
 [node name="Player2" parent="Players" instance=ExtResource( 1 )]
 position = Vector2( 1433, 399 )
 player_id = 1
+initial_color = Color( 1, 0.713726, 0, 1 )
 weapon_scene = ExtResource( 56 )
 
 [node name="Player3" parent="Players" instance=ExtResource( 1 )]
@@ -1748,9 +1751,13 @@ position = Vector2( 946, 214 )
 item_template = ExtResource( 60 )
 
 [node name="PickableItem4" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 1189, 214 )
+position = Vector2( 1199, 219 )
 item_template = ExtResource( 60 )
 
 [node name="PickableItem5" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 766, 150 )
+position = Vector2( 963, 814 )
+item_template = ExtResource( 63 )
+
+[node name="PickableItem6" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 764, 157 )
 item_template = ExtResource( 61 )

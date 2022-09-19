@@ -20,6 +20,10 @@ func _ready() -> void:
 	cooldown_timer.connect("timeout", self, "_on_cooldown_timer_timeout")
 
 
+func equip(_owner) -> void:
+	pass
+
+
 func attack() -> void:
 	pass
 

@@ -21,7 +21,6 @@
 
 [node name="BulletBasic" type="Area2D" groups=["portable"]]
 collision_layer = 2
-collision_mask = 524289
 script = ExtResource( 1 )
 explosion_particles_scene = ExtResource( 3 )
 splat_textures = [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ) ]
@@ -33,7 +32,7 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 32
+collision_layer = 16
 collision_mask = 0
 script = ExtResource( 5 )
 
