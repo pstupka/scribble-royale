@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	if _input_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
-		var look_direction = sign(cos(weapon_pivot.rotation))
+		var look_direction = sign(cos(weapon_pivot.global_rotation))
 		body_pivot.get_node("Hat").scale.x = look_direction
 		body_pivot.get_node("Mouth").scale.x = look_direction
 		body_pivot.get_node("Eyes").scale.x = look_direction
