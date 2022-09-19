@@ -4,6 +4,7 @@ export(float) var destroy_delay = 0.5
 
 var destroy_timer: Timer = Timer.new()
 
+
 func _ready() -> void:
 	add_child(destroy_timer)
 	destroy_timer.start(destroy_delay)

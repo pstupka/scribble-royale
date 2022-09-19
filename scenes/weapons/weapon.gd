@@ -17,7 +17,12 @@ var is_discoverable: bool = true
 func _ready() -> void:
 	add_child(cooldown_timer)
 	cooldown_timer.wait_time = cooldown_time
+	cooldown_timer.one_shot = true
 	cooldown_timer.connect("timeout", self, "_on_cooldown_timer_timeout")
+
+
+func equip(_owner) -> void:
+	pass
 
 
 func attack() -> void:

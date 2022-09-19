@@ -22,7 +22,7 @@ export(float) var gravity = 1500.0
 export(float) var max_jump_velocity = 1000.0
 export(float) var min_jump_velocity = 600.0
 
-export(float) var rotation_speed = 10.0
+export(float) var rotation_speed = 40.0
 
 onready var body_pivot: = $BodyPivot
 onready var weapon_pivot: = $WeaponPivot
@@ -54,16 +54,18 @@ var multi_jump_counter
 
 export (int) var inertia = 1000
 
+export var immune: bool = false
+
 
 func _ready() -> void:
 	randomize()
-	print(input_map.move_left)
 	multi_jump_counter = multi_jump
 	
 	health_indicator.max_value = max_health
 	health_indicator.value = health
 	
-	set_player_color(initial_color)
+	immune = false
+	
 	set_player_color(initial_color)
 	
 	equip_weapon(weapon_scene.instance())
@@ -81,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	if _input_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
-		var look_direction = sign(sign(cos(weapon_pivot.rotation)))
+		var look_direction = sign(cos(weapon_pivot.rotation))
 		body_pivot.get_node("Hat").scale.x = look_direction
 		body_pivot.get_node("Mouth").scale.x = look_direction
 		body_pivot.get_node("Eyes").scale.x = look_direction
@@ -104,13 +106,21 @@ func _apply_movement(_delta, weight: float = 0.5) -> void:
 
 
 func take_damage(damage: float) -> void:
-	var tween: = get_tree().create_tween()\
-		.set_trans(Tween.TRANS_QUART)\
-		.set_ease(Tween.EASE_OUT)
-	health -= damage
-	health = clamp(health, 0, max_health)
-	tween.tween_property(health_indicator, "value", health, 0.2)
-	$BodyPivot/Mouth.set_emotion(health/max_health)
+	if not immune:
+		var tween: = get_tree().create_tween()\
+			.set_trans(Tween.TRANS_QUART)\
+			.set_ease(Tween.EASE_OUT)
+		health -= damage
+		health = clamp(health, 0, max_health)
+		tween.tween_property(health_indicator, "value", health, 0.2)
+		
+		$BodyPivot/Mouth.set_emotion(health/max_health)
+		$CombatAnimationPlayer.play("hurt")
+		
+		_velocity = Vector2.ZERO
+		
+		Events.emit_signal("player_hurt", player_id, 0.7)
+	
 	if health <= 0:
 		die()
 
@@ -138,7 +148,11 @@ func spawn_footstep() -> void:
 	var footstep_instance = footstep_scene.instance()
 	add_child(footstep_instance)
 	footstep_instance.init(color)
-	footstep_instance.process_material.direction.x = -sign(_input_direction.x)
+	footstep_instance.process_material.direction = Vector3(
+		-sign(_velocity.x),
+		-sign(_velocity.y),
+		0)
+	footstep_instance.process_material.initial_velocity = min(_velocity.length(), 40)
 	footstep_instance.set_as_toplevel(true)
 	footstep_instance.global_position = $BodyPivot/FootstepSpawn.global_position
 
@@ -153,11 +167,14 @@ func equip_weapon(new_weapon: Weapon) -> void:
 	weapon = new_weapon
 	weapon_pivot.add_child(weapon)
 	weapon.color = color
+	weapon.equip(self)
 	connect("attack_action_pressed", weapon, "_on_attack_pressed")
 	connect("attack_action_released", weapon, "_on_attack_released")
 
 
-
+func pickup(resource: Resource) -> void:
+	if resource.type == "Weapon":
+		call_deferred("equip_weapon", resource.item_scene.instance())
 
 
 func set_player_color(new_color: Color) -> void:

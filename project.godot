@@ -19,6 +19,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/hurtbox.gd"
 }, {
+"base": "Area2D",
+"class": "ParticleCollider",
+"language": "GDScript",
+"path": "res://addons/SplatterEffect/ParticleCollider.gd"
+}, {
+"base": "Area2D",
+"class": "PickableItem",
+"language": "GDScript",
+"path": "res://scenes/props/pickable_item/pickable_item.gd"
+}, {
+"base": "Resource",
+"class": "PickableItemResource",
+"language": "GDScript",
+"path": "res://utils/item_resource.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -67,6 +82,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Hitbox": "",
 "Hurtbox": "",
+"ParticleCollider": "",
+"PickableItem": "",
+"PickableItemResource": "",
 "Player": "",
 "PlayerState": "",
 "SceneData": "",
@@ -92,11 +110,17 @@ config/version="0.0.1"
 Utils="*res://addons/game-template/utils.gd"
 Transitions="*res://addons/game-template/transition/transition.tscn"
 Game="*res://addons/game-template/game.gd"
-Globals="*res://utils/globals.gd"
+Globals="*res://autoloads/globals.gd"
+Events="*res://autoloads/events.gd"
 
 [category]
 
 property_name=1
+
+[debug]
+
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

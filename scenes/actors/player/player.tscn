@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/actors/player/player-controller.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/character/body-round/outline.png" type="Texture" id=2]
@@ -132,7 +132,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "move"
-length = 0.4
+length = 0.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BodyPivot:rotation_degrees")
@@ -144,7 +144,57 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 7.0, 0.0 ]
+"values": [ 0.0, 5.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyPivot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_footstep"
+} ]
+}
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 24.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 19.0
+height = 16.0
+
+[sub_resource type="Animation" id=10]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:immune")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("BodyPivot:scale")
@@ -159,24 +209,44 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=7]
-radius = 25.0
-height = 28.0
-
-[sub_resource type="CapsuleShape2D" id=8]
-radius = 19.0
-height = 14.0
+[sub_resource type="Animation" id=9]
+resource_name = "hurt"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:immune")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 5
+collision_mask = 13
 script = ExtResource( 1 )
 player_id = 666
 max_speed = 400.0
 gravity = -1500.0
 max_jump_velocity = 600.0
 min_jump_velocity = 400.0
-rotation_speed = 40.0
 inertia = 100
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -195,6 +265,7 @@ script = ExtResource( 4 )
 
 [node name="Move" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 5 )
+acceleration_weight = 0.3
 
 [node name="Jump" type="Node" parent="MotionStateMachine"]
 script = ExtResource( 6 )
@@ -227,6 +298,7 @@ position = Vector2( 0, -22 )
 texture = ExtResource( 2 )
 
 [node name="Fill" type="Sprite" parent="BodyPivot"]
+material = ExtResource( 15 )
 position = Vector2( 0, -22 )
 texture = ExtResource( 9 )
 
@@ -252,3 +324,7 @@ position = Vector2( 0, -22 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -18 )
 shape = SubResource( 8 )
+
+[node name="CombatAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 10 )
+anims/hurt = SubResource( 9 )

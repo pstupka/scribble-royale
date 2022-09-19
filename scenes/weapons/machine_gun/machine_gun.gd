@@ -1,10 +1,13 @@
 extends Weapon
 
 
+onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-basic/bullet-basic.tscn")
 onready var pivot: = $Pivot
 onready var spawn_point: = $SpawnPoint
-onready var bullet_scene: PackedScene = preload("res://scenes/bullets/bullet-basic/bullet-basic.tscn")
-export var shoot_strength = 1500
+
+
+func _ready() -> void:
+	cooldown_timer.one_shot = false
 
 
 func _process(_delta) -> void:
@@ -16,7 +19,6 @@ func attack() -> void:
 	if ammo > 0 and can_attack:
 		spawn_bullet()
 		$AnimationPlayer.play("shoot")
-		cooldown()
 
 
 func drop() -> void:
@@ -35,11 +37,18 @@ func spawn_bullet() -> void:
 	bullet_instance.global_transform = $SpawnPoint.global_transform
 	bullet_instance.color = color
 	bullet_instance.direction = shoot_direction
+	bullet_instance.damage = 2
+
+
+func _on_cooldown_timer_timeout() -> void:
+	attack()
+	._on_cooldown_timer_timeout()
 
 
 func _on_attack_pressed() -> void:
 	attack()
+	cooldown_timer.start()
 
 
 func _on_attack_released() -> void:
-	pass
+	cooldown_timer.stop()

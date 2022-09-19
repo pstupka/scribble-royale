@@ -8,6 +8,7 @@ func enter(_msg := {}):
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
 	player.multi_jump_reset()
+
 	player._velocity = Vector2.ZERO
 
 
@@ -23,11 +24,14 @@ func update(_delta: float) -> void:
 
 
 # Corresponds to the `_physics_process()` callback.
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 #	Below line caused a problem with moving beside the wall.
 #   Player in that case could not jump as is_on_floor was reported as false.
-#	player._apply_movement(delta, acceleration_weight)
+
+#	This move and slide in idle state was aded due to levitation bug
+	player.move_and_slide(Vector2.DOWN, Vector2.UP, true, 4, PI/4, false)
 	
+
 	if not player.is_on_floor():
 		state_machine.transition_to("Fall")
 		return

@@ -16,11 +16,12 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 	if not hitbox:
 		return
 	
-	if owner.has_method("take_damage"):
+	if owner.has_method("take_damage") and hitbox.attacker != owner:
 		owner.take_damage(hitbox.damage)
 
 	if hitbox.owner.has_method("destroy"):
 		hitbox.owner.destroy()
+
 
 func _on_body_entered(body) -> void:
 	if owner.has_method("take_damage"):
