@@ -15,13 +15,14 @@ func pre_start(params):
 			printt("", key, val)
 
 	print("Processing...")
-	yield(get_tree().create_timer(2), "timeout")
+#	yield(get_tree().create_timer(10), "timeout")
 	print("Done")
 
 
 # `start()` is called when the graphic transition ends.
 func start():
 	print("gameplay.gd: start() called")
+	
 	print("Connected controllers:")
 	for id in Input.get_connected_joypads().size():
 		print("Controller: %s, id: %s" % [Input.get_joy_name(id), id]) 

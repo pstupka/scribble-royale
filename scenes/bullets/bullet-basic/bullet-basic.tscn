@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/sprites/misc/splat/splat09.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/misc/splat/splat01.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/misc/splat/splat08.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/misc/splat/splat00.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/misc/splat/splat10.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/misc/splat/splat07.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/misc/splat/splat03.png" type="Texture" id=11]
 [ext_resource path="res://assets/sprites/misc/splat/splat04.png" type="Texture" id=12]
@@ -21,10 +21,9 @@
 
 [node name="BulletBasic" type="Area2D" groups=["portable"]]
 collision_layer = 2
-collision_mask = 524289
 script = ExtResource( 1 )
 explosion_particles_scene = ExtResource( 3 )
-splat_textures = [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 6 ) ]
+splat_textures = [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 9 ) ]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -33,7 +32,7 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 32
+collision_layer = 16
 collision_mask = 0
 script = ExtResource( 5 )
 
