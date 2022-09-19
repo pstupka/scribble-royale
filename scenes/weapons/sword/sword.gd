@@ -32,5 +32,4 @@ func _on_attack_pressed() -> void:
 
 
 func _on_attack_released() -> void:
-	if can_attack:
-		print("le attack released")	
+	pass
