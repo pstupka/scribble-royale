@@ -55,6 +55,7 @@ var multi_jump_counter
 export (int) var inertia = 1000
 
 export var immune: bool = false
+export var can_take_damage: bool = true
 
 
 func _ready() -> void:
@@ -108,14 +109,15 @@ func _apply_movement(_delta, weight: float = 0.5) -> void:
 
 func take_damage(damage: float) -> void:
 	if not immune:
-		var tween: = get_tree().create_tween()\
-			.set_trans(Tween.TRANS_QUART)\
-			.set_ease(Tween.EASE_OUT)
-		health -= damage
-		health = clamp(health, 0, max_health)
-		tween.tween_property(health_indicator, "value", health, 0.2)
-		
-		$BodyPivot/Mouth.set_emotion(health/max_health)
+		if can_take_damage:
+			var tween: = get_tree().create_tween()\
+				.set_trans(Tween.TRANS_QUART)\
+				.set_ease(Tween.EASE_OUT)
+			health -= damage
+			health = clamp(health, 0, max_health)
+			tween.tween_property(health_indicator, "value", health, 0.2)
+			$BodyPivot/Mouth.set_emotion(health/max_health)
+			
 		$CombatAnimationPlayer.play("hurt")
 		
 		_velocity = Vector2.ZERO
