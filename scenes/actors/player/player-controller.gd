@@ -13,7 +13,7 @@ export(int) var player_id = 0
 var color setget set_player_color
 
 export(Color) var initial_color = Globals.COLORS.Purple
-export(PackedScene) var weapon_scene: PackedScene = preload("res://scenes/weapons/blaster/blaster.tscn")
+export(PackedScene) var weapon_scene: PackedScene 
 export var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 var weapon: Weapon
 
@@ -68,7 +68,8 @@ func _ready() -> void:
 	
 	set_player_color(initial_color)
 	
-	equip_weapon(weapon_scene.instance())
+	if weapon_scene:
+		equip_weapon(weapon_scene.instance())
 
 
 func _input(event: InputEvent) -> void:
