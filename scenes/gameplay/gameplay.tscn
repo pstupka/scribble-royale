@@ -1571,6 +1571,7 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 script = ExtResource( 5 )
 
 [node name="Clouds" type="ParallaxBackground" parent="."]
+pause_mode = 2
 follow_viewport_enable = true
 script = ExtResource( 7 )
 
