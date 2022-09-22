@@ -33,12 +33,14 @@ func _unhandled_input(event):
 func resume():
 	get_tree().paused = false
 	pause.hide()
+	Events.emit_signal("game_resumed")
 
 
 func pause_game():
 	resume_option.grab_focus()
 	get_tree().paused = true
 	pause.show()
+	Events.emit_signal("game_paused")
 
 
 func _on_Resume_pressed():

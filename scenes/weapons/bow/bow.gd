@@ -90,3 +90,14 @@ func _on_attack_released() -> void:
 			.set_trans(Tween.TRANS_EXPO)\
 			.set_ease(Tween.EASE_OUT)
 		attack()
+
+
+func _on_game_paused() -> void:
+	pass
+
+
+func _on_game_resumed() -> void:
+	can_attack = false
+	_on_attack_released()
+	can_attack = true
+	_arrow_prepared = false

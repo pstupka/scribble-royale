@@ -52,3 +52,11 @@ func _on_attack_pressed() -> void:
 
 func _on_attack_released() -> void:
 	cooldown_timer.stop()
+
+
+func _on_game_paused() -> void:
+	pass
+
+
+func _on_game_resumed() -> void:
+	cooldown_timer.stop()

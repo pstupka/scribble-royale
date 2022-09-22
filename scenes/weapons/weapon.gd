@@ -19,6 +19,8 @@ func _ready() -> void:
 	cooldown_timer.wait_time = cooldown_time
 	cooldown_timer.one_shot = true
 	cooldown_timer.connect("timeout", self, "_on_cooldown_timer_timeout")
+	Events.connect("game_paused", self, "_on_game_paused")
+	Events.connect("game_resumed", self, "_on_game_resumed")
 
 
 func equip(_owner) -> void:
@@ -51,4 +53,12 @@ func _on_attack_pressed() -> void:
 
 
 func _on_attack_released() -> void:
+	pass
+
+
+func _on_game_paused() -> void:
+	pass
+
+
+func _on_game_resumed() -> void:
 	pass
