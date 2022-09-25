@@ -6,7 +6,7 @@ onready var arrow_scene: PackedScene = preload("res://scenes/bullets/arrow/arrow
 onready var can_shoot_raycast: RayCast2D = $RayCast2D
 onready var arrow_sprite = $Pivot/ItemArrow
 
-export var shoot_strength = 3000
+export var shoot_strength: float = 3000.0
 
 export var hand_start_position: = Vector2(26, -5)
 export var hand_end_position: = Vector2(-10, 0)
@@ -72,7 +72,7 @@ func _on_attack_pressed() -> void:
 		tween.parallel().tween_property($Pivot/ItemArrow, "position", arrow_end_position, 1)\
 			.set_trans(Tween.TRANS_QUART)\
 			.set_ease(Tween.EASE_OUT)
-		tween.parallel().tween_property(self, "shoot_strength", 3000, 1).from(1000)
+		tween.parallel().tween_property(self, "shoot_strength", 3000.0, 1).from(1000.0)
 	
 
 func _on_attack_released() -> void:
