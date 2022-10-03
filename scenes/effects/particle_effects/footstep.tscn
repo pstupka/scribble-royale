@@ -40,6 +40,7 @@ amount = 10
 lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
+local_coords = false
 process_material = SubResource( 2 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

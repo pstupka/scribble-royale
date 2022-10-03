@@ -1,7 +1,9 @@
 extends Weapon
 
+export var bow_angle = -2.0
+
 onready var pivot: = $Pivot
-onready var spawn_point: = $SpawnPoint
+onready var spawn_point: = $Pivot/SpawnPoint
 onready var arrow_scene: PackedScene = preload("res://scenes/bullets/arrow/arrow.tscn")
 onready var can_shoot_raycast: RayCast2D = $RayCast2D
 onready var arrow_sprite = $Pivot/ItemArrow
@@ -18,9 +20,10 @@ var _arrow_prepared: bool = true
 
 var tween: SceneTreeTween
 
+
 func _process(_delta) -> void:
 	pivot.scale.y = sign(cos(global_rotation))
-	spawn_point.position.y = sign(cos(global_rotation)) * abs(spawn_point.position.y)
+	pivot.rotation_degrees = sign(cos(global_rotation)) * bow_angle
 
 
 func attack() -> void:
@@ -41,9 +44,12 @@ func set_color(new_color: Color) -> void:
 func spawn_arrow() -> void:
 	arrow_sprite.hide()
 	var arrow_instance = arrow_scene.instance()
-	var shoot_direction = Vector2.RIGHT.rotated(global_rotation + (randf() - 0.5) * spread_factor).normalized()
+#	+ (randf() - 0.5) * spread_factor
+	var shoot_direction = Vector2.RIGHT.rotated(
+		global_rotation + pivot.rotation
+		).normalized()
 	get_tree().current_scene.add_child(arrow_instance)
-	arrow_instance.global_transform = $SpawnPoint.global_transform
+	arrow_instance.global_transform = spawn_point.global_transform
 	arrow_instance.color = color
 	arrow_instance.apply_impulse(Vector2.ZERO, shoot_direction * shoot_strength)
 

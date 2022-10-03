@@ -242,7 +242,6 @@ tracks/1/keys = {
 collision_layer = 8
 collision_mask = 13
 script = ExtResource( 1 )
-player_id = 666
 max_speed = 400.0
 gravity = -1500.0
 max_jump_velocity = 600.0

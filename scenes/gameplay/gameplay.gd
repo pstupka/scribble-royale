@@ -2,6 +2,11 @@ extends Node
 
 var elapsed = 0
 
+var player_template: = preload("res://scenes/actors/player/player.tscn")
+var controller_player: Player = null
+var keyboard_player: Player = null
+var player_id: int = 0
+
 
 # `pre_start()` is called when a scene is loaded.
 # Use this function to receive params from `Game.change_scene(params)`.
@@ -23,6 +28,34 @@ func pre_start(params):
 func start():
 	print("gameplay.gd: start() called")
 	
-	print("Connected controllers:")
+	print("Controllers management:")
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	
 	for id in Input.get_connected_joypads().size():
 		print("Controller: %s, id: %s" % [Input.get_joy_name(id), id]) 
+
+
+func _on_joy_connection_changed(device: int, connected: bool) -> void:
+	print("Joy connection changed: device - %s, connected: - %s" % [device, connected])
+
+
+func _input(event):
+	if event is InputEventJoypadButton and not is_instance_valid(controller_player):
+		if event.pressed:
+			controller_player = spawn_player()
+			controller_player.player_id = "c%s" % event.device
+	if event is InputEventKey and not is_instance_valid(keyboard_player):
+		if event.pressed:
+			keyboard_player = spawn_player()
+			if keyboard_player:
+				keyboard_player.player_id = 'k'
+
+
+func spawn_player() -> Player:
+	var player = player_template.instance()
+	$Players.add_child(player)
+	return player
+
+	
+
+
