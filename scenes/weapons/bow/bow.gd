@@ -68,6 +68,8 @@ func _on_attack_pressed() -> void:
 	_arrow_prepared = false
 	if can_attack:
 		_arrow_prepared = true
+		if tween:
+			tween.kill()
 		tween = create_tween()
 		tween.tween_property($Pivot/Hand, "position", hand_end_position, 1)\
 			.set_trans(Tween.TRANS_QUART)\
@@ -86,13 +88,13 @@ func _on_attack_released() -> void:
 		if tween:
 			tween.kill()
 		tween = create_tween()
-		tween.tween_property($Pivot/Hand, "position", hand_start_position, 0.3)\
+		tween.tween_property($Pivot/Hand, "position", hand_start_position, cooldown_time)\
 			.set_trans(Tween.TRANS_EXPO)\
 			.set_ease(Tween.EASE_OUT)
-		tween.parallel().tween_method(self, "move_string", $Pivot/String.points[1], hand_start_position, 0.4)\
+		tween.parallel().tween_method(self, "move_string", $Pivot/String.points[1], hand_start_position, cooldown_time)\
 			.set_trans(Tween.TRANS_ELASTIC)\
 			.set_ease(Tween.EASE_OUT)
-		tween.parallel().tween_property($Pivot/ItemArrow, "position", arrow_start_position, 0.4)\
+		tween.parallel().tween_property($Pivot/ItemArrow, "position", arrow_start_position, cooldown_time)\
 			.set_trans(Tween.TRANS_EXPO)\
 			.set_ease(Tween.EASE_OUT)
 		attack()
