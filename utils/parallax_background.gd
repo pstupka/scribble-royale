@@ -1,7 +1,7 @@
 extends ParallaxBackground
 
 export var layers_number = 5
-export var clouds = 40
+export var max_clouds_per_layer = 30
 export var speed = 30.0
 var velocity_x = 10.0
 
@@ -13,9 +13,9 @@ func _ready() -> void:
 		parallax_layer.motion_mirroring = Vector2(Game.size)
 		add_child(parallax_layer)
 	
-		parallax_layer.modulate = Color(1.0, 1.0, 1.0, 1.0 / (layers_number - parallax_id))
+		parallax_layer.modulate = Color(1.0, 1.0, 1.0, -0.1 + 1.0 / (layers_number - parallax_id))
 		parallax_layer.motion_scale = Vector2.ONE / (layers_number - parallax_id)
-		for i in clouds / (parallax_id + 1):
+		for i in max_clouds_per_layer / (parallax_id + 2):
 			var cloud: = Sprite.new()
 			cloud.texture = load("res://assets/sprites/background/background_cloud_%s.png" % (randi() % 1))
 			parallax_layer.add_child(cloud)

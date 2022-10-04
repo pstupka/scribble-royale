@@ -50,6 +50,9 @@ export var can_take_damage: bool = true
 
 var color_id = 0
 
+enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
+var current_emotion: int setget set_emotion
+
 func _ready() -> void:
 	randomize()
 	multi_jump_counter = multi_jump
@@ -61,6 +64,7 @@ func _ready() -> void:
 	
 	set_player_color(initial_color)
 	set_player_id(player_id)
+	set_emotion(Emotion.HAPPY)
 	if weapon_scene:
 		equip_weapon(weapon_scene.instance())
 
@@ -72,7 +76,7 @@ func _input(event: InputEvent) -> void:
 		emit_signal("attack_action_released")
 	
 	if event.is_action_pressed("color"):
-		color_id = wrapi(color_id + 1, 0, Globals.COLORS_ARRAY.size()-1)
+		color_id = wrapi(color_id + 1, 0, Globals.COLORS_ARRAY.size())
 		set_player_color(Globals.COLORS_ARRAY[color_id] )
 		if weapon:
 			weapon.color = Globals.COLORS_ARRAY[color_id] 
@@ -116,7 +120,10 @@ func take_damage(damage: float) -> void:
 			health -= damage
 			health = clamp(health, 0, max_health)
 			tween.tween_property(health_indicator, "value", health, 0.2)
-			$BodyPivot/Mouth.set_emotion(health/max_health)
+			if health/max_health < 0.7:
+				set_emotion(Emotion.NEUTRAL)
+			if health/max_health < 0.3:
+				set_emotion(Emotion.SAD)
 			
 		$CombatAnimationPlayer.play("hurt")
 		
@@ -177,6 +184,12 @@ func equip_weapon(new_weapon: Weapon) -> void:
 func pickup(resource: Resource) -> void:
 	if resource.type == "Weapon":
 		call_deferred("equip_weapon", resource.item_scene.instance())
+
+
+
+func set_emotion(emotion: int) -> void:
+	current_emotion = emotion
+	$BodyPivot/Mouth.region_rect = Rect2(48 * emotion , 0, 48, 64)
 
 
 func set_player_color(new_color: Color) -> void:

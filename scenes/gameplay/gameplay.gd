@@ -3,7 +3,7 @@ extends Node
 var elapsed = 0
 
 var player_template: = preload("res://scenes/actors/player/player.tscn")
-var controller_player: Player = null
+var controller_players : Dictionary = {}
 var keyboard_player: Player = null
 var player_id: int = 0
 
@@ -22,6 +22,7 @@ func pre_start(params):
 	print("Processing...")
 #	yield(get_tree().create_timer(10), "timeout")
 	print("Done")
+	
 
 
 # `start()` is called when the graphic transition ends.
@@ -40,19 +41,18 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 
 
 func _input(event):
-	if event is InputEventJoypadButton and not is_instance_valid(controller_player):
-		if event.pressed:
-			controller_player = spawn_player()
-			controller_player.player_id = "c%s" % event.device
+	if event is InputEventJoypadButton:
+		if event.pressed and not is_instance_valid(controller_players.get(event.device)):
+			controller_players[event.device] = spawn_player("c%s" % event.device)
+			
 	if event is InputEventKey and not is_instance_valid(keyboard_player):
 		if event.pressed:
-			keyboard_player = spawn_player()
-			if keyboard_player:
-				keyboard_player.player_id = 'k'
+			keyboard_player = spawn_player('k')
 
 
-func spawn_player() -> Player:
+func spawn_player(device_id) -> Player:
 	var player = player_template.instance()
+	player.player_id = device_id
 	$Players.add_child(player)
 	return player
 

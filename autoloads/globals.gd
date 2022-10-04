@@ -20,4 +20,7 @@ const COLORS_ARRAY: Array = [
 	Color("5286ff"),
 	Color("aa46db"),
 	Color("db46d1"),
+	Color("d9c73d"),
+	Color("ff78c2"),
+	Color("5fd936"),
 ]
