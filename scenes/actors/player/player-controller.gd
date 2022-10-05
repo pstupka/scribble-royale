@@ -12,7 +12,7 @@ onready var _rigid_item_scene: = preload("res://scenes/props/rigid-item/rigid-it
 export(String) var player_id = "k" setget set_player_id
 var color setget set_player_color
 
-export(Color) var initial_color = Globals.COLORS.Purple
+export(Color) var initial_color = Globals.color_palette[Globals.COLOR.DEFAULT]
 export(PackedScene) var weapon_scene: PackedScene 
 export var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 var weapon: Weapon
@@ -67,6 +67,11 @@ func _ready() -> void:
 	set_emotion(Emotion.HAPPY)
 	if weapon_scene:
 		equip_weapon(weapon_scene.instance())
+	
+	$BodyPivot/Outline.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Mouth.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Hat.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Eyes.modulate = Globals.color_palette[Globals.COLOR.WHITE]
 
 
 func _input(event: InputEvent) -> void:
@@ -76,10 +81,10 @@ func _input(event: InputEvent) -> void:
 		emit_signal("attack_action_released")
 	
 	if event.is_action_pressed("color"):
-		color_id = wrapi(color_id + 1, 0, Globals.COLORS_ARRAY.size())
-		set_player_color(Globals.COLORS_ARRAY[color_id] )
+		color_id = wrapi(color_id + 1, 2, Globals.color_palette.size())
+		set_player_color(Globals.color_palette[color_id] )
 		if weapon:
-			weapon.color = Globals.COLORS_ARRAY[color_id] 
+			weapon.color = Globals.color_palette[color_id] 
 
 
 func _physics_process(delta: float) -> void:

@@ -16,9 +16,11 @@ func _process(_delta) -> void:
 
 
 func attack() -> void:
-	if ammo > 0 and can_attack:
-		spawn_bullet()
-		$AnimationPlayer.play("shoot")
+	if ammo <= 0 or not can_attack:
+		return
+	spawn_bullet()
+	$AnimationPlayer.play("shoot")
+	.attack()
 
 
 func drop() -> void:

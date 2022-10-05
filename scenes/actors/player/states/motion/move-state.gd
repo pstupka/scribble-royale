@@ -8,9 +8,12 @@ func _ready() -> void:
 
 
 func enter(_msg := {}):
-	player.get_node("AnimationPlayer").play("move")
+
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
+		player.get_node("AnimationPlayer").play("fall_to_move")
+	else:
+		player.get_node("AnimationPlayer").play("move")
 	player.multi_jump_reset()
 
 

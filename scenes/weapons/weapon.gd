@@ -28,8 +28,11 @@ func equip(_owner) -> void:
 
 
 func attack() -> void:
-	pass
-
+	if ammo <= 0:
+		can_attack = false
+		cooldown_timer.stop()
+		return
+	ammo -= 1
 
 func drop() -> void:
 	pass
@@ -47,7 +50,6 @@ func set_color(new_color: Color) -> void:
 func set_cooldown_time(time: float) -> void:
 	cooldown_time = time
 	cooldown_timer.wait_time = time
-	
 
 
 func _on_cooldown_timer_timeout() -> void:

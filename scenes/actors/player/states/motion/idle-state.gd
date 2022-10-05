@@ -4,9 +4,12 @@ export(float) var acceleration_weight: = 0.1
 var falling_frames_counter = 0
 
 func enter(_msg := {}):
-	player.get_node("AnimationPlayer").play("idle")
+
 	if state_machine.previous_state.name == "Fall":
 		player.spawn_footstep()
+		player.get_node("AnimationPlayer").play("land")
+	else:
+		player.get_node("AnimationPlayer").play("idle")
 	player.multi_jump_reset()
 
 	player._velocity = Vector2.ZERO

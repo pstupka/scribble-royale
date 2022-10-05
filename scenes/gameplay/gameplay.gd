@@ -20,7 +20,9 @@ func pre_start(params):
 			printt("", key, val)
 
 	print("Processing...")
-#	yield(get_tree().create_timer(10), "timeout")
+	$TileMap2.modulate = Globals.color_palette[Globals.COLOR.WHITE] #asdghASg NOT WOOORKING
+	$TileMap.modulate = Globals.color_palette[Globals.COLOR.WHITE] #asdghASg NOT WOOORKING
+
 	print("Done")
 	
 

@@ -14,6 +14,7 @@ func _ready() -> void:
 	randomize()
 	if item_template:
 		sprite.texture = item_template.item_sprite
+		sprite.modulate = Globals.color_palette[Globals.COLOR.WHITE]
 	
 	var tween = create_tween().set_loops()
 	tween.tween_property(pivot, "position:y", -10.0, 2)

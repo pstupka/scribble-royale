@@ -1576,7 +1576,6 @@ motion_scale = Vector2( 0, 0 )
 [node name="ColorRect" type="ColorRect" parent="Clouds/Background"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 0.705882, 0.705882, 0.705882, 1 )
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="Clouds"]
 motion_mirroring = Vector2( 1920, 0 )

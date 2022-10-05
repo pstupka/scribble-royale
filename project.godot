@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "ColorPalette",
+"language": "GDScript",
+"path": "res://utils/color_palette/color_palette.gd"
+}, {
 "base": "Area2D",
 "class": "Hitbox",
 "language": "GDScript",
@@ -80,6 +85,7 @@ _global_script_classes=[ {
 "path": "res://scenes/weapons/weapon.gd"
 } ]
 _global_script_class_icons={
+"ColorPalette": "",
 "Hitbox": "",
 "Hurtbox": "",
 "ParticleCollider": "",

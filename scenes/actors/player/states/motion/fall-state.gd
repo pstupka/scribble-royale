@@ -20,11 +20,9 @@ func enter(msg := {}):
 		player.multi_jump_counter = 0
 
 
-
 func handle_input(event: InputEvent) -> void:
 	if (event.is_action_pressed(player.input_map.jump) and (coyote_jump or player.multi_jump_counter > 0)):
 		state_machine.transition_to("Jump")
-
 
 
 func physics_update(delta):
