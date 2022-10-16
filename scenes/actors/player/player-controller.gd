@@ -12,7 +12,7 @@ onready var _rigid_item_scene: = preload("res://scenes/props/rigid-item/rigid-it
 export(String) var player_id = "k" setget set_player_id
 var color setget set_player_color
 
-export(Color) var initial_color = Globals.color_palette[Globals.COLOR.DEFAULT]
+export(Color) var initial_color
 export(PackedScene) var weapon_scene: PackedScene 
 export var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 var weapon: Weapon
@@ -53,6 +53,11 @@ var color_id = 0
 enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
 var current_emotion: int setget set_emotion
 
+
+func _enter_tree() -> void:
+	initial_color = Globals.color_palette[Globals.COLOR.DEFAULT]
+
+
 func _ready() -> void:
 	randomize()
 	multi_jump_counter = multi_jump
@@ -72,6 +77,7 @@ func _ready() -> void:
 	$BodyPivot/Mouth.modulate = Globals.color_palette[Globals.COLOR.WHITE]
 	$BodyPivot/Hat.modulate = Globals.color_palette[Globals.COLOR.WHITE]
 	$BodyPivot/Eyes.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	health_indicator.tint_under = Globals.color_palette[Globals.COLOR.WHITE]
 
 
 func _input(event: InputEvent) -> void:

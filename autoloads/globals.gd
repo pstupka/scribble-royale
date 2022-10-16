@@ -76,7 +76,6 @@ var color_palette_CC_29: Array = [
 	Color("cf8acb"),
 ]
 
-
 var color_palette_vexed_paper_pixels: Array = [
 	Color("eee1c4"),# white
 	Color("c3b797"),# default
@@ -102,6 +101,32 @@ var color_palette_vexed_paper_pixels: Array = [
 	Color("6f8b6e"),
 ]
 
+
+var color_palette_vexed_chroma_noir: Array = [
+	Color("d9d9d9"),# white
+	Color("828282"),# default
+	Color("4f4f4f"),
+	Color("383838"),
+	Color("0d0d0d"),
+	Color("b5b5b5"),
+	Color("4c2712"),
+	Color("60361d"),
+	Color("a86437"),
+	Color("e67a30"),
+	Color("4ae364"),
+	Color("99e550"),
+	Color("d151ee"),
+	Color("f873e4"),
+	Color("9c3a2b"),
+	Color("e64e35"),
+	Color("f25a5a"),
+	Color("ad8830"),
+	Color("f7c756"),
+	Color("306082"),
+	Color("639bff"),
+	Color("4dcced"),
+]
+
 const COLORS_ARRAY_FIRST_ATTEMPT: Array = [
 	Color("9179ff"),
 	Color("fc5c65"),
@@ -117,4 +142,4 @@ const COLORS_ARRAY_FIRST_ATTEMPT: Array = [
 	Color("5fd936"),
 ]
 
-var color_palette = color_palette_vinik_24.duplicate()
+var color_palette = color_palette_vinik_24

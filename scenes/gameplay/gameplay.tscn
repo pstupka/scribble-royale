@@ -1616,7 +1616,7 @@ format = 1
 tile_data = PoolIntArray( 983050, 45, 0, 983051, 45, 0, 983052, 45, 0, 983053, 45, 0, 983054, 45, 0, 983055, 45, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0 )
 
 [node name="ShootingTarget" parent="." instance=ExtResource( 4 )]
-position = Vector2( 794, 595 )
+position = Vector2( 482, 435 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 
@@ -1625,25 +1625,17 @@ position = Vector2( 704, 532 )
 
 [node name="PickableItems" type="Node2D" parent="."]
 
-[node name="PickableItem" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 580, 640 )
-item_template = ExtResource( 61 )
+[node name="Bow" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 934, 597 )
 
-[node name="PickableItem2" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 1006, 515 )
-
-[node name="PickableItem3" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 946, 214 )
+[node name="MachineGun" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 1144, 592 )
 item_template = ExtResource( 60 )
 
-[node name="PickableItem4" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 1199, 219 )
-item_template = ExtResource( 60 )
-
-[node name="PickableItem5" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 942, 726 )
+[node name="Sword" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 692, 592 )
 item_template = ExtResource( 63 )
 
-[node name="PickableItem6" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 764, 157 )
+[node name="Blaster2" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 816, 589 )
 item_template = ExtResource( 61 )
