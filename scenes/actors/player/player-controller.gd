@@ -9,11 +9,11 @@ const MAX_FALL_SPEED = 1000
 
 onready var _rigid_item_scene: = preload("res://scenes/props/rigid-item/rigid-item.tscn")
 
-export(int) var player_id = 0
+export(String) var player_id = "k" setget set_player_id
 var color setget set_player_color
 
-export(Color) var initial_color = Globals.COLORS.Purple
-export(PackedScene) var weapon_scene: PackedScene = preload("res://scenes/weapons/blaster/blaster.tscn")
+export(Color) var initial_color
+export(PackedScene) var weapon_scene: PackedScene 
 export var footstep_scene: PackedScene = preload("res://scenes/effects/particle_effects/footstep.tscn")
 var weapon: Weapon
 
@@ -33,16 +33,7 @@ var health: float = 100.0
 
 onready var hat: = $BodyPivot/Hat
 
-onready var input_map : Dictionary = {
-	"move_left": "move_left_p%s" % player_id,
-	"move_right": "move_right_p%s" % player_id,
-	"move_up": "move_up_p%s" % player_id,
-	"move_down": "move_down_p%s" % player_id,
-	"jump": "jump_p%s" % player_id,
-	"attack": "attack_p%s" % player_id,
-	"secondary_attack": "secondary_attack_p%s" % player_id,
-	"lock_move": "lock_move_p%s" % player_id,
-}
+onready var input_map : Dictionary
 
 var _velocity := Vector2.ZERO
 var _speed := 0.0
@@ -55,6 +46,16 @@ var multi_jump_counter
 export (int) var inertia = 1000
 
 export var immune: bool = false
+export var can_take_damage: bool = true
+
+var color_id = 0
+
+enum Emotion {HAPPY, SAD, NEUTRAL, SURPRISED}
+var current_emotion: int setget set_emotion
+
+
+func _enter_tree() -> void:
+	initial_color = Globals.color_palette[Globals.COLOR.DEFAULT]
 
 
 func _ready() -> void:
@@ -67,8 +68,16 @@ func _ready() -> void:
 	immune = false
 	
 	set_player_color(initial_color)
+	set_player_id(player_id)
+	set_emotion(Emotion.HAPPY)
+	if weapon_scene:
+		equip_weapon(weapon_scene.instance())
 	
-	equip_weapon(weapon_scene.instance())
+	$BodyPivot/Outline.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Mouth.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Hat.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$BodyPivot/Eyes.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	health_indicator.tint_under = Globals.color_palette[Globals.COLOR.WHITE]
 
 
 func _input(event: InputEvent) -> void:
@@ -76,6 +85,12 @@ func _input(event: InputEvent) -> void:
 		emit_signal("attack_action_pressed")
 	if event.is_action_released(input_map.attack) and weapon:
 		emit_signal("attack_action_released")
+	
+	if event.is_action_pressed("color"):
+		color_id = wrapi(color_id + 1, 2, Globals.color_palette.size())
+		set_player_color(Globals.color_palette[color_id] )
+		if weapon:
+			weapon.color = Globals.color_palette[color_id] 
 
 
 func _physics_process(delta: float) -> void:
@@ -83,11 +98,13 @@ func _physics_process(delta: float) -> void:
 	if _input_direction:
 		var angle_to = weapon_pivot.transform.x.angle_to(_input_direction)
 		weapon_pivot.rotate(sign(angle_to) * min(delta * rotation_speed, abs(angle_to)))
-		var look_direction = sign(cos(weapon_pivot.rotation))
+		var look_direction = sign(cos(weapon_pivot.global_rotation))
 		body_pivot.get_node("Hat").scale.x = look_direction
 		body_pivot.get_node("Mouth").scale.x = look_direction
 		body_pivot.get_node("Eyes").scale.x = look_direction
-
+	
+	if global_position.y > 2000: 
+		die()
 
 func _apply_gravity(delta) -> void:
 	_velocity.y -= gravity * delta
@@ -107,14 +124,18 @@ func _apply_movement(_delta, weight: float = 0.5) -> void:
 
 func take_damage(damage: float) -> void:
 	if not immune:
-		var tween: = get_tree().create_tween()\
-			.set_trans(Tween.TRANS_QUART)\
-			.set_ease(Tween.EASE_OUT)
-		health -= damage
-		health = clamp(health, 0, max_health)
-		tween.tween_property(health_indicator, "value", health, 0.2)
-		
-		$BodyPivot/Mouth.set_emotion(health/max_health)
+		if can_take_damage:
+			var tween: = get_tree().create_tween()\
+				.set_trans(Tween.TRANS_QUART)\
+				.set_ease(Tween.EASE_OUT)
+			health -= damage
+			health = clamp(health, 0, max_health)
+			tween.tween_property(health_indicator, "value", health, 0.2)
+			if health/max_health < 0.7:
+				set_emotion(Emotion.NEUTRAL)
+			if health/max_health < 0.3:
+				set_emotion(Emotion.SAD)
+			
 		$CombatAnimationPlayer.play("hurt")
 		
 		_velocity = Vector2.ZERO
@@ -153,8 +174,7 @@ func spawn_footstep() -> void:
 		-sign(_velocity.y),
 		0)
 	footstep_instance.process_material.initial_velocity = min(_velocity.length(), 40)
-	footstep_instance.set_as_toplevel(true)
-	footstep_instance.global_position = $BodyPivot/FootstepSpawn.global_position
+	footstep_instance.position = $BodyPivot/FootstepSpawn.position
 
 
 func multi_jump_reset() -> void:
@@ -177,7 +197,27 @@ func pickup(resource: Resource) -> void:
 		call_deferred("equip_weapon", resource.item_scene.instance())
 
 
+
+func set_emotion(emotion: int) -> void:
+	current_emotion = emotion
+	$BodyPivot/Mouth.region_rect = Rect2(48 * emotion , 0, 48, 64)
+
+
 func set_player_color(new_color: Color) -> void:
 	color = new_color
 	$BodyPivot/Fill.self_modulate = new_color
 	health_indicator.tint_progress = new_color
+
+
+func set_player_id(new_id: String) -> void:
+	player_id = new_id
+	input_map = {
+		"move_left": "move_left_%s" % player_id,
+		"move_right": "move_right_%s" % player_id,
+		"move_up": "move_up_%s" % player_id,
+		"move_down": "move_down_%s" % player_id,
+		"jump": "jump_%s" % player_id,
+		"attack": "attack_%s" % player_id,
+		"secondary_attack": "secondary_attack_%s" % player_id,
+		"lock_move": "lock_move_%s" % player_id,
+	}

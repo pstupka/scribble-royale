@@ -15,12 +15,6 @@ func _ready():
 		pass
 
 
-# when the node is removed from the tree (mostly because of a scene change)
-func _exit_tree() -> void:
-	# disable pause
-	get_tree().paused = false
-
-
 func _unhandled_input(event):
 	if event.is_action_pressed("pause"):
 		if get_tree().paused:
@@ -33,12 +27,14 @@ func _unhandled_input(event):
 func resume():
 	get_tree().paused = false
 	pause.hide()
+	Events.emit_signal("game_resumed")
 
 
 func pause_game():
 	resume_option.grab_focus()
 	get_tree().paused = true
 	pause.show()
+	Events.emit_signal("game_paused")
 
 
 func _on_Resume_pressed():
@@ -46,6 +42,7 @@ func _on_Resume_pressed():
 
 
 func _on_Main_Menu_pressed():
+	get_tree().paused = false
 	Game.change_scene("res://scenes/menu/menu.tscn", {
 		'show_progress_bar': false
 	})

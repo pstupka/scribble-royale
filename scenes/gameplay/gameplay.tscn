@@ -1,6 +1,5 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=72 format=2]
 
-[ext_resource path="res://scenes/actors/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sprites/tiles/tile_brick.png" type="Texture" id=3]
 [ext_resource path="res://scenes/props/shooting_target/shooting_target.tscn" type="PackedScene" id=4]
@@ -52,16 +51,11 @@
 [ext_resource path="res://assets/sprites/tiles/tile_arrowLeft.png" type="Texture" id=50]
 [ext_resource path="res://assets/sprites/tiles/tile_castle.png" type="Texture" id=51]
 [ext_resource path="res://assets/sprites/tiles/tile_bushHalf.png" type="Texture" id=52]
-[ext_resource path="res://assets/sprites/background/background_cloudA.png" type="Texture" id=53]
-[ext_resource path="res://assets/sprites/background/background_cloudB.png" type="Texture" id=54]
 [ext_resource path="res://assets/sprites/tiles/tile_arch_v2.png" type="Texture" id=55]
-[ext_resource path="res://scenes/weapons/bow/bow.tscn" type="PackedScene" id=56]
-[ext_resource path="res://scenes/weapons/machine_gun/machine_gun.tscn" type="PackedScene" id=57]
 [ext_resource path="res://utils/shake_camera.gd" type="Script" id=58]
 [ext_resource path="res://scenes/props/pickable_item/pickable_item.tscn" type="PackedScene" id=59]
 [ext_resource path="res://scenes/props/pickable_item/pickable_resource_machine_gun.tres" type="Resource" id=60]
 [ext_resource path="res://scenes/props/pickable_item/pickable_resource_blaster.tres" type="Resource" id=61]
-[ext_resource path="res://scenes/weapons/sword/sword.tscn" type="PackedScene" id=62]
 [ext_resource path="res://scenes/props/pickable_item/pickable_resource_machine_sword.tres" type="Resource" id=63]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -1574,112 +1568,24 @@ script = ExtResource( 5 )
 pause_mode = 2
 follow_viewport_enable = true
 script = ExtResource( 7 )
+speed = 20.0
+
+[node name="Background" type="ParallaxLayer" parent="Clouds"]
+motion_scale = Vector2( 0, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="Clouds/Background"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="Clouds"]
+motion_mirroring = Vector2( 1920, 0 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Clouds"]
-motion_scale = Vector2( 0.2, 1 )
 motion_mirroring = Vector2( 1920, 0 )
-
-[node name="BackgroundCloudA" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 132, 604 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudB" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 673, 117 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 54 )
-
-[node name="BackgroundCloudB2" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 1459, 533 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 54 )
-
-[node name="BackgroundCloudB3" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 860, 741 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="BackgroundCloudB4" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 1587, 222 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="BackgroundCloudB5" type="Sprite" parent="Clouds/ParallaxLayer2"]
-position = Vector2( 1141, 914 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Clouds"]
-motion_scale = Vector2( 0.6, 1 )
-motion_mirroring = Vector2( 1920, 0 )
-
-[node name="BackgroundCloudA" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 368, 380 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudA5" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 1595, 822 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudA2" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 1036, 602 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudA3" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 1733, 457 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudA4" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 1861, 133 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudB" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 1234, 293 )
-texture = ExtResource( 54 )
-
-[node name="BackgroundCloudB2" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 743, 443 )
-texture = ExtResource( 54 )
-
-[node name="BackgroundCloudB3" type="Sprite" parent="Clouds/ParallaxLayer"]
-position = Vector2( 650, 206 )
-texture = ExtResource( 54 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Clouds"]
 motion_scale = Vector2( 1, 0 )
 motion_mirroring = Vector2( 1920, 0 )
-
-[node name="BackgroundCloudA" type="Sprite" parent="Clouds/ParallaxLayer3"]
-position = Vector2( 478, 653 )
-scale = Vector2( 1.1, 1.1 )
-texture = ExtResource( 53 )
-
-[node name="BackgroundCloudB4" type="Sprite" parent="Clouds/ParallaxLayer3"]
-position = Vector2( 1229, 87 )
-scale = Vector2( 1.2, 1.2 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="BackgroundCloudB6" type="Sprite" parent="Clouds/ParallaxLayer3"]
-position = Vector2( 980, 880 )
-scale = Vector2( 1.2, 1.2 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="BackgroundCloudB7" type="Sprite" parent="Clouds/ParallaxLayer3"]
-position = Vector2( 1931, 967 )
-scale = Vector2( 1.2, 1.2 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
-
-[node name="BackgroundCloudB5" type="Sprite" parent="Clouds/ParallaxLayer3"]
-position = Vector2( 372, 923 )
-scale = Vector2( 1.2, 1.2 )
-texture = ExtResource( 54 )
-offset = Vector2( -64, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -1695,7 +1601,7 @@ cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 show_collision = true
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 65542, 36, 0, 65543, 36, 0, 65544, 36, 0, 131078, 40, 0, 131079, 40, 0, 131080, 40, 0, 196614, 40, 0, 196615, 40, 0, 196616, 40, 0, 196620, 16, 0, 262149, 40, 0, 262150, 12, 0, 262151, 11, 0, 262152, 12, 0, 262153, 40, 0, 262155, 17, 0, 262156, 43, 0, 262159, 16, 0, 262163, 16, 0, 327684, 41, 0, 327685, 41, 0, 327686, 41, 0, 327687, 41, 0, 327688, 41, 0, 327689, 41, 0, 327690, 41, 0, 327691, 41, 0, 327692, 41, 0, 327693, 17, 0, 327695, 43, 0, 327699, 43, 0, 393229, 41, 0, 393230, 41, 0, 393231, 41, 0, 393232, 41, 0, 393234, 17, 0, 393235, 44, 0, 393236, 17, 0, 458769, 41, 0, 458770, 41, 0, 458771, 41, 0, 458772, 41, 0, 458773, 0, 0, 589825, 18, 0, 589830, 18, 0, 589847, 16, 0, 655361, 14, 0, 655366, 14, 0, 655376, 18, 0, 655382, 35, 0, 655383, 43, 0, 655384, 16, 0, 720897, 14, 0, 720898, 14, 0, 720901, 14, 0, 720902, 14, 0, 720912, 1, 0, 720918, 35, 0, 720919, 44, 0, 720920, 43, 0, 720924, 17, 0, 720925, 32, 0, 786433, 14, 0, 786434, 14, 0, 786437, 14, 0, 786438, 14, 0, 786441, 18, 0, 786448, 3, 0, 786454, 35, 0, 786455, 44, 0, 786456, 44, 0, 786457, 16, 0, 786460, 32, 0, 786461, 0, 0, 851969, 46, 0, 851970, 46, 0, 851973, 46, 0, 851974, 46, 0, 851975, 25, 0, 851976, 25, 0, 851977, 1, 0, 851978, 28, 0, 851979, 28, 0, 851980, 28, 0, 851981, 28, 0, 851982, 28, 0, 851983, 28, 0, 851984, 3, 0, 851985, 17, 0, 851986, 25, 0, 851987, 39, 0, 851989, 39, 0, 851990, 35, 0, 851991, 44, 0, 851992, 44, 0, 851993, 43, 0, 851995, 32, 0, 851996, 0, 0, 851997, 0, 0, 917505, 14, 0, 917506, 14, 0, 917507, 14, 0, 917508, 14, 0, 917509, 14, 0, 917510, 14, 0, 917511, 14, 0, 917512, 14, 0, 917513, 14, 0, 917514, 15, 0, 917515, 4, 0, 917516, 4, 0, 917517, 4, 0, 917518, 4, 0, 917519, 15, 0, 917520, 14, 0, 917521, 41, 0, 917522, 41, 0, 917523, 41, 0, 917524, 41, 0, 917525, 41, 0, 917526, 32, 0, 917527, 32, 0, 917528, 32, 0, 917529, 32, 0, 917530, 32, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 983041, 14, 0, 983042, 14, 0, 983043, 14, 0, 983044, 14, 0, 983045, 14, 0, 983046, 14, 0, 983047, 14, 0, 983048, 14, 0, 983049, 14, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 2, 0, 983056, 14, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 1048577, 14, 0, 1048578, 14, 0, 1048579, 14, 0, 1048580, 14, 0, 1048581, 14, 0, 1048582, 14, 0, 1048583, 14, 0, 1048584, 14, 0, 1048585, 14, 0, 1048587, 2, 0, 1048588, 2, 0, 1048589, 2, 0, 1048590, 2, 0, 1048592, 14, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0, 1114113, 14, 0, 1114114, 14, 0, 1114115, 14, 0, 1114116, 14, 0, 1114117, 14, 0, 1114118, 14, 0, 1114119, 14, 0, 1114120, 14, 0, 1114121, 14, 0, 1114128, 14, 0, 1114129, 0, 0, 1114130, 0, 0, 1114131, 0, 0, 1114132, 0, 0, 1114133, 0, 0, 1114134, 0, 0, 1114135, 0, 0, 1114136, 0, 0, 1114137, 0, 0, 1114138, 0, 0, 1114139, 0, 0, 1114140, 0, 0, 1114141, 0, 0 )
+tile_data = PoolIntArray( 65542, 36, 0, 65543, 36, 0, 65544, 36, 0, 131078, 40, 0, 131079, 40, 0, 131080, 40, 0, 196614, 40, 0, 196615, 40, 0, 196616, 40, 0, 196620, 16, 0, 262149, 40, 0, 262150, 12, 0, 262151, 11, 0, 262152, 12, 0, 262153, 40, 0, 262155, 17, 0, 262156, 43, 0, 262159, 16, 0, 262163, 16, 0, 327684, 41, 0, 327685, 41, 0, 327686, 41, 0, 327687, 41, 0, 327688, 41, 0, 327689, 41, 0, 327690, 41, 0, 327691, 41, 0, 327692, 41, 0, 327693, 17, 0, 327695, 43, 0, 327699, 43, 0, 393229, 41, 0, 393230, 41, 0, 393231, 41, 0, 393232, 41, 0, 393234, 17, 0, 393235, 44, 0, 393236, 17, 0, 458769, 41, 0, 458770, 41, 0, 458771, 41, 0, 458772, 41, 0, 458773, 0, 0, 524289, 18, 0, 524294, 18, 0, 524311, 16, 0, 589825, 14, 0, 589830, 14, 0, 589840, 18, 0, 589846, 35, 0, 589847, 43, 0, 589848, 16, 0, 655361, 14, 0, 655362, 14, 0, 655365, 14, 0, 655366, 14, 0, 655376, 1, 0, 655382, 35, 0, 655383, 44, 0, 655384, 43, 0, 655388, 17, 0, 655389, 32, 0, 720897, 14, 0, 720898, 14, 0, 720901, 14, 0, 720902, 14, 0, 720905, 18, 0, 720912, 3, 0, 720918, 35, 0, 720919, 44, 0, 720920, 44, 0, 720921, 16, 0, 720924, 32, 0, 720925, 0, 0, 786433, 46, 0, 786434, 46, 0, 786437, 46, 0, 786438, 46, 0, 786439, 25, 0, 786440, 25, 0, 786441, 1, 0, 786442, 28, 0, 786443, 28, 0, 786444, 28, 0, 786445, 28, 0, 786446, 28, 0, 786447, 28, 0, 786448, 3, 0, 786449, 17, 0, 786450, 25, 0, 786451, 39, 0, 786453, 39, 0, 786454, 35, 0, 786455, 44, 0, 786456, 44, 0, 786457, 43, 0, 786459, 32, 0, 786460, 0, 0, 786461, 0, 0, 851969, 14, 0, 851970, 14, 0, 851971, 14, 0, 851972, 14, 0, 851973, 14, 0, 851974, 14, 0, 851975, 14, 0, 851976, 14, 0, 851977, 14, 0, 851978, 15, 0, 851979, 4, 0, 851980, 4, 0, 851981, 4, 0, 851982, 4, 0, 851983, 15, 0, 851984, 14, 0, 851985, 41, 0, 851986, 41, 0, 851987, 41, 0, 851988, 41, 0, 851989, 41, 0, 851990, 32, 0, 851991, 32, 0, 851992, 32, 0, 851993, 32, 0, 851994, 32, 0, 851995, 0, 0, 851996, 0, 0, 851997, 0, 0, 917505, 14, 0, 917506, 14, 0, 917507, 14, 0, 917508, 14, 0, 917509, 14, 0, 917510, 14, 0, 917511, 14, 0, 917512, 14, 0, 917513, 14, 0, 917515, 2, 0, 917516, 2, 0, 917517, 2, 0, 917518, 2, 0, 917520, 14, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 983041, 14, 0, 983042, 14, 0, 983043, 14, 0, 983044, 14, 0, 983045, 14, 0, 983046, 14, 0, 983047, 14, 0, 983048, 14, 0, 983049, 14, 0, 983051, 2, 0, 983052, 2, 0, 983053, 2, 0, 983054, 2, 0, 983056, 14, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 1048577, 14, 0, 1048578, 14, 0, 1048579, 14, 0, 1048580, 14, 0, 1048581, 14, 0, 1048582, 14, 0, 1048583, 14, 0, 1048584, 14, 0, 1048585, 14, 0, 1048592, 14, 0, 1048593, 0, 0, 1048594, 0, 0, 1048595, 0, 0, 1048596, 0, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 0, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 0, 0, 1048604, 0, 0, 1048605, 0, 0 )
 
 [node name="SplatLayer" parent="TileMap" instance=ExtResource( 6 )]
 
@@ -1707,57 +1613,29 @@ show_collision = true
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 1048586, 45, 0, 1048587, 45, 0, 1048588, 45, 0, 1048589, 45, 0, 1048590, 45, 0, 1048591, 45, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0 )
+tile_data = PoolIntArray( 983050, 45, 0, 983051, 45, 0, 983052, 45, 0, 983053, 45, 0, 983054, 45, 0, 983055, 45, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 0, 0, 1048589, 0, 0, 1048590, 0, 0, 1048591, 0, 0 )
 
 [node name="ShootingTarget" parent="." instance=ExtResource( 4 )]
-position = Vector2( 794, 595 )
+position = Vector2( 482, 435 )
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 
 [node name="Players" type="Node2D" parent="."]
-
-[node name="Player" parent="Players" instance=ExtResource( 1 )]
-position = Vector2( 392, 492 )
-player_id = 0
-weapon_scene = ExtResource( 62 )
-
-[node name="Player2" parent="Players" instance=ExtResource( 1 )]
-position = Vector2( 1433, 399 )
-player_id = 1
-initial_color = Color( 1, 0.713726, 0, 1 )
-weapon_scene = ExtResource( 56 )
-
-[node name="Player3" parent="Players" instance=ExtResource( 1 )]
-position = Vector2( 839, 828 )
-initial_color = Color( 0.988235, 0.360784, 0.396078, 1 )
-weapon_scene = ExtResource( 57 )
-
-[node name="Player4" parent="Players" instance=ExtResource( 1 )]
-position = Vector2( 1276, 822 )
-player_id = 1
-initial_color = Color( 0.215686, 0.85098, 0.54902, 1 )
+position = Vector2( 704, 532 )
 
 [node name="PickableItems" type="Node2D" parent="."]
 
-[node name="PickableItem" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 584, 700 )
-item_template = ExtResource( 61 )
+[node name="Bow" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 934, 597 )
 
-[node name="PickableItem2" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 1003, 570 )
-
-[node name="PickableItem3" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 946, 214 )
+[node name="MachineGun" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 1144, 592 )
 item_template = ExtResource( 60 )
 
-[node name="PickableItem4" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 1199, 219 )
-item_template = ExtResource( 60 )
-
-[node name="PickableItem5" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 963, 814 )
+[node name="Sword" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 692, 592 )
 item_template = ExtResource( 63 )
 
-[node name="PickableItem6" parent="PickableItems" instance=ExtResource( 59 )]
-position = Vector2( 764, 157 )
+[node name="Blaster2" parent="PickableItems" instance=ExtResource( 59 )]
+position = Vector2( 816, 589 )
 item_template = ExtResource( 61 )

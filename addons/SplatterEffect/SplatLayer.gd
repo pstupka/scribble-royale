@@ -8,6 +8,7 @@ onready var _mask = $Mask
 var _tile_map: TileMap
 
 func _ready():
+	set_as_toplevel(true)
 	_tile_map = get_parent()
 	var tile_map_rect = _tile_map.get_used_rect()
 	var tile_map_size = tile_map_rect.size*_tile_map.cell_size

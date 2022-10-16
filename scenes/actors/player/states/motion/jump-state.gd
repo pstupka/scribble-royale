@@ -27,3 +27,5 @@ func physics_update(delta):
 	player._apply_movement(delta, acceleration_weight)
 
 
+func exit() -> void:
+	player.set_emotion(player.current_emotion)
