@@ -4,6 +4,11 @@ on:
     branches:
       - master
       - staging
+  pull_request:
+    branches:
+      - master
+      - staging
+      
 env:
   GODOT_VERSION: 3.5.1
   EXPORT_NAME: scribble-royale
