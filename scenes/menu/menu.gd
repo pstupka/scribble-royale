@@ -24,6 +24,10 @@ func _on_PlayButton_pressed() -> void:
 	Game.change_scene("res://scenes/gameplay/gameplay.tscn", params)
 
 
+func _on_SettingsButton_pressed() -> void:
+	pass # Replace with function body.
+
+
 func _on_ExitButton_pressed() -> void:
 	# gently shutdown the game
 	var transitions = get_node_or_null("/root/Transitions")

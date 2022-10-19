@@ -97,7 +97,7 @@ run/main_scene="res://scenes/menu/menu.tscn"
 boot_splash/image="res://assets/splash.png"
 boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
 config/icon="res://assets/sprites/icon.png"
-config/version="0.0.2"
+config/version="0.0.3"
 
 [autoload]
 
@@ -115,6 +115,7 @@ property_name=1
 [debug]
 
 settings/fps/force_fps=60
+settings/stdout/print_fps=true
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
