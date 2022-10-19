@@ -1,9 +1,11 @@
 extends RigidBody2D
 
+var color = Globals.color_palette[Globals.COLOR.WHITE]
 
 func _ready() -> void:
 	randomize()
 	add_to_group("bodies")
+	modulate = color
 
 
 func take_damage(_damage: float) -> void:
