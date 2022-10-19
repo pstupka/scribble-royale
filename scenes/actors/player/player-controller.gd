@@ -153,6 +153,7 @@ func die() -> void:
 		get_tree().current_scene.call_deferred("add_child", rigid_drop)
 		rigid_drop.global_transform = $BodyPivot/Hat.global_transform
 
+
 	emit_signal("player_died", player_id)
 	call_deferred("queue_free")
 
