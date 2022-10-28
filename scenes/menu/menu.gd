@@ -1,11 +1,22 @@
 extends Control
 
+onready var menu_background = get_node("%ColorRect")
+
 
 func _ready():
+	randomize()
 	$Version/GameVersion.text = ProjectSettings.get_setting("application/config/version")
 	$Version/GodotVersion.text = "Godot %s" % Engine.get_version_info().string
 	# needed for gamepads to work
 	$VBoxContainer/PlayButton.grab_focus()
+	
+	menu_background.color = Globals.color_palette[Globals.COLOR.DEFAULT]
+	
+	$VBoxContainer.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$CenterContainer.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$Version.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	$Credits.modulate = Globals.color_palette[Globals.COLOR.WHITE]
+	
 	if OS.has_feature('HTML5'):
 		$VBoxContainer/ExitButton.queue_free()
 

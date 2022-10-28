@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/shaders/wobble_shader.tres" type="Material" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 31.0161
+radius = 49.0408
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.00719424, 0.496403, 0.841727, 1 )
