@@ -4,7 +4,7 @@ export(float) var destroy_delay = 0.5
 
 
 func _ready() -> void:
-	yield(get_tree().create_timer(destroy_delay), "timeout")
+	yield(get_tree().create_timer(destroy_delay), "timeout") # TODO: yield issue
 	call_deferred("queue_free")
 
 

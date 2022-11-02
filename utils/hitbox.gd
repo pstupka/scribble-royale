@@ -1,7 +1,7 @@
 class_name Hitbox
 extends Area2D
 
-var damage: float = 10.0
+var damage: float = 50.0
 var attacker
 
 func _init() -> void:

@@ -55,11 +55,11 @@ var current_emotion: int setget set_emotion
 
 
 func _enter_tree() -> void:
-	initial_color = Globals.color_palette[Globals.COLOR.DEFAULT]
+	randomize()
+	initial_color = Globals.color_palette[randi() % Globals.color_palette.size()]
 
 
 func _ready() -> void:
-	randomize()
 	multi_jump_counter = multi_jump
 	
 	health_indicator.max_value = max_health
