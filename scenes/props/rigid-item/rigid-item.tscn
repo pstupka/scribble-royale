@@ -11,8 +11,8 @@ rough = true
 extents = Vector2( 22, 16 )
 
 [node name="RigidItem" type="RigidBody2D"]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 64
+collision_mask = 65
 physics_material_override = SubResource( 2 )
 gravity_scale = 5.0
 linear_velocity = Vector2( -100, -100 )
