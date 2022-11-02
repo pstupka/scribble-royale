@@ -329,7 +329,6 @@ gravity = -1500.0
 max_jump_velocity = 600.0
 min_jump_velocity = 400.0
 inertia = 100
-can_take_damage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
